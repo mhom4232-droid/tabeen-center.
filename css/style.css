@@ -1,65 +1,71 @@
 @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap');
 
 :root {
-    --main-blue: #1e3a8a;
-    --gold: #d4af37;
-    --bg-light: #f8fafc;
+    --primary: #1e3a8a;    /* أزرق ملكي */
+    --secondary: #3b82f6;  /* أزرق فاتح */
+    --gold: #d4af37;       /* ذهبي */
+    --bg: #f8fafc;
+}
+
+* {
+    margin: 0; padding: 0; box-sizing: border-box;
+    font-family: 'Tajawal', sans-serif;
 }
 
 body {
-    font-family: 'Tajawal', sans-serif;
-    background-color: var(--bg-light);
+    background-color: var(--bg);
     direction: rtl;
-    margin: 0;
-    padding-bottom: 90px; /* لمنع تداخل المحتوى مع الشريط السفلي */
+    padding-bottom: 80px; /* مساحة للشريط السفلي */
 }
 
-/* حل مشكلة القائمة الجانبية المشتتة */
+/* الكروت الاحترافية */
+.official-card {
+    background: white;
+    border-radius: 20px;
+    padding: 20px;
+    margin: 15px;
+    box-shadow: 0 4px 20px rgba(30, 58, 138, 0.08);
+    border: 1px solid rgba(226, 232, 240, 0.8);
+}
+
+/* حل مشكلة الشريط السفلي (التنقل) */
 .nav-bar {
     position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
+    bottom: 0; left: 0; right: 0;
     background: white;
-    height: 70px;
+    height: 75px;
     display: flex;
     justify-content: space-around;
     align-items: center;
-    box-shadow: 0 -5px 15px rgba(0,0,0,0.05);
+    box-shadow: 0 -5px 25px rgba(0,0,0,0.1);
     z-index: 1000;
+    border-top: 1px solid #eee;
 }
 
 .nav-item {
     text-decoration: none;
     color: #64748b;
     font-size: 11px;
-    font-weight: bold;
+    font-weight: 900;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 4px;
+    gap: 5px;
 }
 
-.nav-item.active { color: var(--main-blue); }
-.nav-item i { font-size: 20px; }
+.nav-item i { font-size: 22px; }
+.nav-item.active { color: var(--primary); }
 
-/* تحسين شكل الكروت لعدم التداخل */
-.official-card {
-    background: white;
-    border-radius: 20px;
-    padding: 20px;
-    margin: 15px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.03);
-    border: 1px solid #f1f5f9;
-}
-
+/* الأزرار */
 .btn-primary {
-    background: var(--main-blue);
-    color: white;
-    padding: 12px;
-    border-radius: 12px;
-    width: 100%;
-    border: none;
-    font-weight: bold;
-    cursor: pointer;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    color: white; border: none; padding: 15px;
+    border-radius: 15px; width: 100%; font-weight: bold;
+    cursor: pointer; transition: 0.3s;
+}
+
+input, select, textarea {
+    width: 100%; padding: 12px; margin-top: 8px;
+    border-radius: 12px; border: 1px solid #ddd;
+    outline: none; background: #fcfcfc;
 }
