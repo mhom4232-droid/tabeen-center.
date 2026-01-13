@@ -1,43 +1,39 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>مركز التابعين | غزة</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-
-    <header class="p-4 bg-white flex justify-between items-center border-b">
-        <div class="flex items-center gap-2">
-            <div class="bg-blue-900 text-white p-2 rounded-lg"><i class="fas fa-quran"></i></div>
-            <span class="font-black text-blue-900">مركز التابعين</span>
+    <header class="p-5 bg-white shadow-sm flex justify-between items-center">
+        <h1 class="font-black text-blue-900 text-xl">مركز التابعين القرآني</h1>
+        <div class="w-10 h-10 bg-blue-900 text-white rounded-full flex items-center justify-center">
+            <i class="fas fa-star"></i>
         </div>
     </header>
 
-    <main class="max-w-md mx-auto mt-6">
-        <div class="bg-slate-900 text-white p-8 rounded-[35px] mx-4 shadow-xl text-center relative overflow-hidden">
-            <h2 class="text-2xl font-black mb-2">صرح القرآن في غزة</h2>
-            <p class="text-[11px] text-slate-400 leading-relaxed mb-6">بناء الجيل الصاعد على مائدة القرآن الكريم، بإشراف الأستاذ إسماعيل نوفل.</p>
-            <div class="flex gap-3">
-                <a href="student.html" class="flex-1 bg-blue-600 p-3 rounded-xl font-bold text-sm">دخول الطلاب</a>
-                <a href="about.html" class="flex-1 bg-white/10 p-3 rounded-xl font-bold text-sm">من نحن</a>
-            </div>
+    <div class="official-card bg-[#1e3a8a] text-white py-10 text-center relative overflow-hidden">
+        <h2 class="text-2xl font-black mb-4">صرح القرآن في غزة</h2>
+        <p class="text-xs opacity-80 mb-6">بناء الجيل الصاعد على مائدة القرآن الكريم</p>
+        <div class="flex gap-2 px-4">
+            <a href="student.html" class="flex-1 bg-white text-blue-900 p-3 rounded-xl font-black text-sm">ملفي القرآني</a>
+            <a href="mosques.html" class="flex-1 bg-blue-500 text-white p-3 rounded-xl font-black text-sm">التسجيل</a>
         </div>
+    </div>
 
-        <div class="grid grid-cols-2 gap-4 p-4">
-            <a href="mosques.html" class="official-card text-center m-0">
-                <i class="fas fa-mosque text-blue-600 text-2xl mb-2"></i>
-                <h4 class="text-xs font-black">المساجد والحلقات</h4>
-            </a>
-            <a href="student.html" class="official-card text-center m-0">
-                <i class="fas fa-medal text-amber-500 text-2xl mb-2"></i>
-                <h4 class="text-xs font-black">لوحة الشرف</h4>
-            </a>
+    <div class="grid grid-cols-2 gap-2 p-4">
+        <div class="official-card m-0 text-center">
+            <i class="fas fa-mosque text-blue-600 text-2xl mb-2"></i>
+            <p class="font-black text-xs">الحلقات</p>
         </div>
-    </main>
+        <div class="official-card m-0 text-center">
+            <i class="fas fa-trophy text-gold text-2xl mb-2"></i>
+            <p class="font-black text-xs">المسابقات</p>
+        </div>
+    </div>
 
     <nav class="nav-bar">
         <a href="index.html" class="nav-item active"><i class="fas fa-home"></i>الرئيسية</a>
@@ -45,6 +41,5 @@
         <a href="student.html" class="nav-item"><i class="fas fa-user-graduate"></i>ملفي</a>
         <a href="admin.html" class="nav-item"><i class="fas fa-cog"></i>الإدارة</a>
     </nav>
-
 </body>
 </html>
