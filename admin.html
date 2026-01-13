@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لوحة المحفظ | مركز التابعين</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-slate-100 p-4">
+
+    <div id="adminAuth" class="max-w-md mx-auto mt-20">
+        <div class="official-card text-center py-10 shadow-xl">
+            <div class="w-16 h-16 bg-slate-800 text-white rounded-2xl flex items-center justify-center mx-auto mb-4">
+                <i class="fas fa-user-shield text-2xl"></i>
+            </div>
+            <h2 class="text-xl font-black mb-6">دخول الطاقم الإداري</h2>
+            <input type="password" id="pass" class="w-full text-center text-2xl tracking-[1em] h-14 bg-white border-2 border-slate-200 rounded-xl mb-4 focus:border-blue-500 outline-none" placeholder="••••">
+            <button onclick="auth()" class="btn-gold bg-slate-800">دخول اللوحة</button>
+        </div>
+    </div>
+
+    <div id="adminPanel" class="hidden max-w-md mx-auto space-y-6">
+        <div class="flex justify-between items-center">
+            <h2 class="text-lg font-black text-slate-800"><i class="fas fa-edit ml-2"></i>رصد إنجازات الطلاب</h2>
+            <button onclick="location.reload()" class="bg-red-50 text-red-500 px-3 py-1 rounded-lg text-[10px] font-bold">خروج</button>
+        </div>
+
+        <div class="official-card border-t-8 border-blue-600 shadow-lg">
+            <div class="space-y-4">
+                <div>
+                    <label class="text-[10px] font-black text-slate-400 block mb-1">كود الطالب (ID)</label>
+                    <input type="text" id="upID" placeholder="مثلاً: 101" class="font-bold text-lg">
+                </div>
+
+                <div class="grid grid-cols-2 gap-2">
+                    <div>
+                        <label class="text-[10px] font-black text-slate-400 block mb-1">عدد الأجزاء (1-30)</label>
+                        <input type="number" id="upParts" placeholder="0">
+                    </div>
+                    <div>
+                        <label class="text-[10px] font-black text-slate-400 block mb-1">درجة اليوم</label>
+                        <select id="upGrade" class="font-bold text-sm">
+                            <option>ممتاز مرتفع 🌟</option>
+                            <option>ممتاز ✅</option>
+                            <option>جيد جداً 👍</option>
+                            <option>جيد 🆗</option>
+                            <option>يحتاج مراجعة ⚠️</option>
+                            <option>غائب ❌</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="text-[10px] font-black text-slate-400 block mb-1">تسميع اليوم (السورة أو الآيات)</label>
+                    <input type="text" id="upToday" placeholder="مثلاً: سورة النبأ كاملة">
+                </div>
+
+                <div>
+                    <label class="text-[10px] font-black text-slate-400 block mb-1">رسالة تحفيزية للطالب</label>
+                    <textarea id="upSMsg" placeholder="اكتب تشجيعاً للبطل..." rows="2"></textarea>
+                </div>
+
+                <div>
+                    <label class="text-[10px] font-black text-slate-400 block mb-1">ملاحظة لولي الأمر</label>
+                    <textarea id="upPMsg" placeholder="أخبر الأهل عن مستوى ابنهم..." rows="2"></textarea>
+                </div>
+
+                <button onclick="handleUpdate()" id="upBtn" class="btn-gold" style="background: #2563eb; box-shadow: 0 10px 15px -3px rgba(37, 99, 235, 0.3);">
+                    <i class="fas fa-cloud-upload-alt ml-2"></i> حفظ وتحديث السجل
+                </button>
+            </div>
+        </div>
+
+        <div class="bg-blue-50 p-4 rounded-2xl border border-blue-100 flex gap-3">
+            <i class="fas fa-lightbulb text-blue-400 mt-1"></i>
+            <p class="text-[10px] text-blue-700 leading-relaxed">
+                <b>نصيحة للمحفظ:</b> عند إدخال "ممتاز مرتفع"، سيتم إطلاق "كونفيتي" واحتفال في صفحة الطالب لزيادة حماسه.
+            </p>
+        </div>
+    </div>
+
+    <nav class="nav-bar">
+        <a href="index.html" class="nav-item"><i class="fas fa-home block text-xl"></i>الرئيسية</a>
+        <a href="mosques.html" class="nav-item"><i class="fas fa-mosque block text-xl"></i>المساجد</a>
+        <a href="student.html" class="nav-item"><i class="fas fa-user-graduate block text-xl"></i>ملفي</a>
+        <a href="admin.html" class="nav-item active"><i class="fas fa-cog block text-xl"></i>الإدارة</a>
+    </nav>
+
+    <script src="main.js"></script>
+    <script>
+        // التحقق من باسوورد الدخول (يمكنك تغييره من هنا)
+        function auth() {
+            const pass = document.getElementById('pass').value;
+            if(pass === "2026") {
+                document.getElementById('adminAuth').classList.add('hidden');
+                document.getElementById('adminPanel').classList.remove('hidden');
+            } else {
+                alert("رمز الدخول غير صحيح، يرجى المحاولة مرة أخرى.");
+            }
+        }
+
+        async function handleUpdate() {
+            const btn = document.getElementById('upBtn');
+            const data = {
+                id: document.getElementById('upID').value,
+                parts: document.getElementById('upParts').value,
+                grade: document.getElementById('upGrade').value,
+                today: document.getElementById('upToday').value,
+                sMsg: document.getElementById('upSMsg').value,
+                pMsg: document.getElementById('upPMsg').value
+            };
+
+            if(!data.id) return alert("يرجى إدخال ID الطالب");
+
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin ml-2"></i> جاري الحفظ...';
+            btn.disabled = true;
+
+            const success = await updateStudentScore(data);
+
+            if(success) {
+                alert("تم تحديث بيانات الطالب " + data.id + " بنجاح ✅");
+                // تفريغ بعض الخانات بعد الإرسال لتسهيل إدخال الطالب التالي
+                document.getElementById('upID').value = "";
+                document.getElementById('upToday').value = "";
+                document.getElementById('upSMsg').value = "";
+            } else {
+                alert("حدث خطأ أثناء الاتصال بالسيرفر ❌");
+            }
+
+            btn.innerHTML = '<i class="fas fa-cloud-upload-alt ml-2"></i> حفظ وتحديث السجل';
+            btn.disabled = false;
+        }
+    </script>
+</body>
+</html>

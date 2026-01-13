@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>ملف الإنجاز | مركز التابعين</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-slate-50">
+
+    <div id="loginSection" class="p-4 pt-10 max-w-md mx-auto">
+        <div class="official-card text-center py-12 shadow-2xl">
+            <div class="w-20 h-20 bg-amber-500 text-white rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg shadow-amber-200">
+                <i class="fas fa-id-card text-3xl"></i>
+            </div>
+            <h2 class="text-2xl font-black text-slate-800 mb-2">متابعة الطالب</h2>
+            <p class="text-xs text-slate-400 mb-8">أدخل كود الطالب الخاص بك لمشاهدة إنجاز اليوم</p>
+            
+            <input type="text" id="stdID" class="w-full text-center text-4xl font-black tracking-widest h-20 bg-slate-50 rounded-2xl border-2 border-slate-100 focus:border-amber-500 transition-all mb-6" placeholder="000">
+            
+            <button onclick="loadStudent()" id="loadBtn" class="btn-gold h-16 text-lg shadow-xl">
+                <i class="fas fa-unlock-alt ml-2"></i> عرض السجل القرآني
+            </button>
+        </div>
+    </div>
+
+    <div id="dataSection" class="hidden p-4 max-w-md mx-auto space-y-4">
+        
+        <div class="official-card border-t-8 border-amber-500 relative overflow-hidden">
+            <div class="flex justify-between items-start mb-6">
+                <div>
+                    <span id="rankBadge" class="inline-block bg-amber-100 text-amber-700 text-[10px] px-3 py-1 rounded-full font-black mb-2">...</span>
+                    <h2 id="stdName" class="text-2xl font-black text-slate-800">...</h2>
+                    <p id="teacherName" class="text-xs text-slate-400 font-bold mt-1"></p>
+                </div>
+                <div id="initials" class="w-14 h-14 gradient-gold text-white rounded-2xl flex items-center justify-center text-2xl font-black shadow-lg">?</div>
+            </div>
+
+            <div class="space-y-2 mt-4">
+                <div class="flex justify-between text-[10px] font-black italic">
+                    <span class="text-slate-500 uppercase">التقدم نحو الختمة</span>
+                    <span id="pctText" class="text-amber-600">0%</span>
+                </div>
+                <div class="h-4 bg-slate-100 rounded-full overflow-hidden p-0.5 border border-slate-200">
+                    <div id="progBar" class="h-full gradient-gold rounded-full w-0 transition-all duration-1000"></div>
+                </div>
+                <p class="text-[9px] text-slate-400 text-center">تم إنجاز <span id="partsText">0</span> جزءاً من أصل 30</p>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-4">
+            <div class="official-card text-center">
+                <span class="block text-[10px] text-slate-400 mb-1">تسميع اليوم</span>
+                <span id="todayLesson" class="font-black text-slate-700">...</span>
+            </div>
+            <div class="official-card text-center">
+                <span class="block text-[10px] text-slate-400 mb-1">التقييم</span>
+                <span id="todayGrade" class="font-black text-amber-600 text-lg">...</span>
+            </div>
+        </div>
+
+        <div class="official-card bg-slate-900 text-white border-none relative overflow-hidden">
+            <div class="relative z-10 space-y-4">
+                <div class="bg-white/10 p-4 rounded-xl border border-white/10">
+                    <h4 class="text-amber-400 text-[10px] font-black mb-1 uppercase tracking-widest"><i class="fas fa-star ml-1"></i> رسالتك يا بطل</h4>
+                    <p id="sMsg" class="text-sm italic font-bold">...</p>
+                </div>
+                <div class="bg-white/5 p-4 rounded-xl border border-white/5">
+                    <h4 class="text-blue-400 text-[10px] font-black mb-1 uppercase tracking-widest"><i class="fas fa-heart ml-1"></i> رسالة لولي الأمر</h4>
+                    <p id="pMsg" class="text-sm italic text-slate-300">...</p>
+                </div>
+            </div>
+            <i class="fas fa-quote-left absolute -bottom-4 -left-4 text-white/5 text-7xl"></i>
+        </div>
+
+        <div class="flex gap-2">
+            <button onclick="location.reload()" class="flex-1 py-4 bg-white border border-slate-200 rounded-2xl text-slate-400 font-black text-xs">
+                <i class="fas fa-sign-out-alt ml-1"></i> خروج
+            </button>
+            <button onclick="shareAchievement()" class="flex-[2] btn-gold font-black text-xs shadow-lg">
+                <i class="fas fa-share-nodes ml-1"></i> مشاركة التميز
+            </button>
+        </div>
+    </div>
+
+    <nav class="nav-bar">
+        <a href="index.html" class="nav-item"><i class="fas fa-home block text-xl"></i>الرئيسية</a>
+        <a href="mosques.html" class="nav-item"><i class="fas fa-mosque block text-xl"></i>المساجد</a>
+        <a href="student.html" class="nav-item active"><i class="fas fa-user-graduate block text-xl"></i>ملفي</a>
+        <a href="competitions.html" class="nav-item"><i class="fas fa-trophy block text-xl"></i>المسابقات</a>
+    </nav>
+
+    <script src="main.js"></script>
+    <script>
+        async function loadStudent() {
+            const id = document.getElementById('stdID').value;
+            if(!id) {
+                alert("يرجى إدخال الكود الخاص بك");
+                return;
+            }
+
+            const btn = document.getElementById('loadBtn');
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin ml-2"></i> جاري فتح الملف...';
+            btn.disabled = true;
+
+            const data = await fetchStudentData(id);
+
+            if(data.found) {
+                // إخفاء تسجيل الدخول وإظهار البيانات
+                document.getElementById('loginSection').classList.add('hidden');
+                document.getElementById('dataSection').classList.remove('hidden');
+
+                // تعبئة البيانات
+                document.getElementById('stdName').innerText = data.name;
+                document.getElementById('teacherName').innerText = "بإشراف المحفظ: " + data.teacher;
+                document.getElementById('todayLesson').innerText = data.today || "لم يرصد بعد";
+                document.getElementById('todayGrade').innerText = data.grade || "-";
+                document.getElementById('sMsg').innerText = data.studentMsg || "واصل حفظك يا بطل، القرآن نورك.";
+                document.getElementById('pMsg').innerText = data.parentMsg || "نشكركم على حسن المتابعة.";
+                document.getElementById('initials').innerText = data.name.charAt(0);
+
+                // حساب الأجزاء والتقدم
+                const parts = parseInt(data.parts) || 0;
+                const pct = Math.round((parts / 30) * 100);
+                document.getElementById('progBar').style.width = pct + '%';
+                document.getElementById('pctText').innerText = pct + '%';
+                document.getElementById('partsText').innerText = parts;
+
+                // نظام الرتب
+                let rank = "برعم قرآني 🌱";
+                if(parts >= 30) rank = "الحافظ المتقن 👑";
+                else if(parts >= 15) rank = "نوارة المركز 🌟";
+                else if(parts >= 5) rank = "طالب مجتهد ✅";
+                document.getElementById('rankBadge').innerText = rank;
+
+                // احتفال إذا كانت الدرجة ممتاز
+                if(data.grade.includes("ممتاز")) {
+                    confetti({
+                        particleCount: 150,
+                        spread: 70,
+                        origin: { y: 0.7 },
+                        colors: ['#d4af37', '#ffffff', '#fbbf24']
+                    });
+                }
+            } else {
+                alert("عذراً، هذا الكود غير موجود في سجلاتنا.");
+                btn.innerHTML = '<i class="fas fa-unlock-alt ml-2"></i> عرض السجل القرآني';
+                btn.disabled = false;
+            }
+        }
+
+        function shareAchievement() {
+            const name = document.getElementById('stdName').innerText;
+            const rank = document.getElementById('rankBadge').innerText;
+            const text = `بفضل الله، حصلت على رتبة (${rank}) في مركز التابعين القرآني! 📖✨`;
+            
+            if (navigator.share) {
+                navigator.share({
+                    title: 'إنجازي في مركز التابعين',
+                    text: text,
+                    url: window.location.href
+                });
+            } else {
+                alert("انسخ الرسالة وشاركها: " + text);
+            }
+        }
+    </script>
+</body>
+</html>

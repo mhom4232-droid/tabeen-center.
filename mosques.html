@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>المساجد والحلقات | التابعين</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="p-4">
+        <h2 class="text-xl font-black mb-6">خريطة الحلقات والانتساب</h2>
+        
+        <div class="official-card">
+            <h3 class="font-black text-amber-600 mb-4 border-b pb-2">مسجد التابعين (المقر الرئيسي)</h3>
+            <div class="space-y-4">
+                <div class="bg-slate-50 p-4 rounded-xl">
+                    <div class="flex justify-between items-center mb-2">
+                        <span class="font-bold text-sm">حلقة ناهض العصار</span>
+                        <span class="badge bg-green-100 text-green-600">متاح التسجيل</span>
+                    </div>
+                    <p class="text-[10px] text-slate-400">الفئة: 10-15 سنة | الموعد: العصر</p>
+                    <button class="w-full mt-3 bg-white border border-slate-200 py-2 rounded-lg text-[10px] font-black" onclick="openReg('ناهض العصار')">تسجيل طفلي</button>
+                </div>
+                </div>
+        </div>
+
+        <div id="regForm" class="official-card border-2 border-amber-500 mt-10">
+            <h3 class="font-black mb-4">نموذج الانتساب الجديد</h3>
+            <form id="newStudentForm">
+                <input type="text" name="child_name" placeholder="اسم الطفل الرباعي" required>
+                <input type="tel" name="parent_phone" placeholder="رقم جوال ولي الأمر" required>
+                <select name="selected_teacher" id="teacherField">
+                    <option value="">اختر المحفظ</option>
+                    <option>ناهض العصار</option>
+                    <option>محمد العصار</option>
+                    <option>أحمد جحجوح</option>
+                </select>
+                <button type="submit" class="btn-gold">إرسال طلب الانضمام</button>
+            </form>
+        </div>
+    </div>
+    
+    <script src="main.js"></script>
+</body>
+</html>
