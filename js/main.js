@@ -1,47 +1,27 @@
 const scriptURL = 'https://script.google.com/macros/s/AKfycbxf1_9IvOs2qYR9XabunfNbMiSzQq7JSPTg_gd1f6jQhJPebJc139zFUVWzs9ApSyrOlg/exec';
 
-// 1. وظيفة التنقل بين الصفحات
-function goToPage(url) {
-    window.location.href = url;
-}
-
-// 2. جلب بيانات الطالب (student.html)
+// جلب بيانات الطالب
 async function fetchStudentData(id) {
     try {
         const response = await fetch(`${scriptURL}?action=getStudent&id=${id}`);
         return await response.json();
-    } catch (error) {
-        console.error('Error:', error);
-        return { found: false };
-    }
+    } catch (e) { return { found: false }; }
 }
 
-// 3. إرسال تسجيل جديد (mosques.html)
-async function registerNewStudent(formData) {
-    formData.action = 'registerNew';
+// تسجيل طالب جديد
+async function registerNewStudent(data) {
+    data.action = 'registerNew';
     try {
-        await fetch(scriptURL, {
-            method: 'POST',
-            mode: 'no-cors',
-            body: JSON.stringify(formData)
-        });
+        await fetch(scriptURL, { method: 'POST', mode: 'no-cors', body: JSON.stringify(data) });
         return true;
-    } catch (error) {
-        return false;
-    }
+    } catch (e) { return false; }
 }
 
-// 4. تحديث بيانات من المحفظ (admin.html)
-async function updateStudentScore(updateData) {
-    updateData.action = 'updateScore';
+// تحديث إنجاز (للمحفظ)
+async function updateStudentScore(data) {
+    data.action = 'updateScore';
     try {
-        await fetch(scriptURL, {
-            method: 'POST',
-            mode: 'no-cors',
-            body: JSON.stringify(updateData)
-        });
+        await fetch(scriptURL, { method: 'POST', mode: 'no-cors', body: JSON.stringify(data) });
         return true;
-    } catch (error) {
-        return false;
-    }
+    } catch (e) { return false; }
 }
