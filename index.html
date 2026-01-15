@@ -3,156 +3,345 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>مركز التابعين | المنصة الإمبراطورية</title>
+    <title>منصة التابعين | الإمبراطورية الذكية</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@300;500;700;900&display=swap');
-        :root { --primary: #0f172a; --gold: #d4af37; --bg: #f8fafc; }
-        body { font-family: 'Tajawal', sans-serif; background-color: var(--bg); transition: 0.4s; }
-        .dark-mode { background-color: #020617; color: white; }
-        .glass-card { background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.3); border-radius: 35px; box-shadow: 0 15px 35px rgba(0,0,0,0.05); }
-        .dark-mode .glass-card { background: rgba(30, 41, 59, 0.7); border-color: rgba(255,255,255,0.05); }
-        .imperial-gradient { background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%); }
-        .nav-dock { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); width: 90%; max-width: 450px; background: #0f172a; border-radius: 30px; display: flex; justify-content: space-around; padding: 18px; z-index: 1000; border: 1px solid rgba(212, 175, 55, 0.3); }
+        
+        :root {
+            --primary: #0f172a; /* كحلي ملكي */
+            --gold: #c5a059;    /* ذهبي ملكي */
+            --accent: #1e3a8a;  /* أزرق عميق */
+            --glass: rgba(255, 255, 255, 0.9);
+        }
+
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background: #f1f5f9;
+            color: var(--primary);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow-x: hidden;
+        }
+
+        .dark-mode {
+            background: #020617;
+            color: #f1f5f9;
+        }
+
+        /* تأثيرات الإمبراطورية */
+        .imperial-card {
+            background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%);
+            border: 1px solid var(--gold);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .gold-glow {
+            box-shadow: 0 0 20px rgba(197, 160, 89, 0.2);
+        }
+
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 40px;
+        }
+
+        .dark-mode .glass-panel {
+            background: rgba(30, 41, 59, 0.7);
+            border-color: rgba(255, 255, 255, 0.05);
+        }
+
+        /* رحلة الإنجاز التفاعلية */
+        .step-active {
+            border-right: 4px solid var(--gold);
+            padding-right: 20px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { border-color: var(--gold); }
+            50% { border-color: #fff; }
+            100% { border-color: var(--gold); }
+        }
+
+        /* شريط التنقل العائم */
+        .nav-dock {
+            position: fixed;
+            bottom: 25px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 85%;
+            max-width: 400px;
+            background: var(--primary);
+            border-radius: 30px;
+            padding: 15px;
+            display: flex;
+            justify-content: space-around;
+            z-index: 1000;
+            border: 1px solid var(--gold);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+
+        .nav-item { color: rgba(255,255,255,0.5); transition: 0.3s; font-size: 1.2rem; }
+        .nav-item.active { color: var(--gold); transform: translateY(-5px); }
+
+        .shimmer {
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            background-size: 200% 100%;
+            animation: shimmer 2s infinite;
+        }
+        @keyframes shimmer { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }
     </style>
 </head>
-<body class="selection:bg-yellow-200 pb-32">
+<body class="pb-32">
 
-    <header class="p-6 flex justify-between items-center">
-        <div class="flex items-center gap-3">
-            <div class="w-12 h-12 bg-blue-900 rounded-2xl flex items-center justify-center text-white text-2xl shadow-xl border border-gold/30">
-                <i class="fas fa-mosque"></i>
+    <header class="p-6 flex justify-between items-center sticky top-0 z-50 backdrop-blur-lg">
+        <div class="flex items-center gap-4 animate__animated animate__fadeInRight">
+            <div class="w-14 h-14 imperial-card rounded-2xl flex items-center justify-center text-gold text-3xl shadow-2xl">
+                <i class="fas fa-quran"></i>
             </div>
             <div>
-                <h1 class="text-xl font-black text-blue-900 dark:text-white">مركز التابعين</h1>
-                <span class="text-[9px] block font-bold text-amber-600 uppercase tracking-widest">The Followers Center</span>
+                <h1 class="text-2xl font-black tracking-tight text-blue-950 dark:text-white">مركز التابعين</h1>
+                <div class="flex items-center gap-2">
+                    <span class="w-2 h-2 bg-green-500 rounded-full animate-ping"></span>
+                    <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">نظام الإدارة الذكي v2.0</span>
+                </div>
             </div>
         </div>
-        <button onclick="document.body.classList.toggle('dark-mode')" class="w-12 h-12 rounded-2xl bg-white dark:bg-slate-800 shadow-md flex items-center justify-center text-xl transition-all">
-            <i class="fas fa-moon"></i>
+        <button onclick="toggleTheme()" class="w-12 h-12 glass-panel flex items-center justify-center text-xl shadow-lg active:scale-90 transition-all">
+            <i class="fas fa-moon" id="themeIcon"></i>
         </button>
     </header>
 
-    <main class="max-w-4xl mx-auto p-4 space-y-8">
+    <main class="max-w-4xl mx-auto p-4 space-y-10">
 
-        <section class="glass-card p-6 text-center relative overflow-hidden border-r-8 border-gold">
-            <h4 class="text-xs font-black text-amber-600 mb-2">رسالة اليوم للسماء</h4>
-            <p id="dailyMsg" class="text-lg font-bold text-slate-700 dark:text-slate-200">"خياركم من تعلم القرآن وعلمه.."</p>
+        <section id="inspiration" class="glass-panel p-8 text-center relative overflow-hidden animate__animated animate__fadeIn">
+            <div class="absolute top-0 right-0 p-4 opacity-10 text-6xl"><i class="fas fa-quote-left"></i></div>
+            <h4 class="text-xs font-black text-amber-600 mb-3 tracking-widest uppercase">توجيه رباني لقلبك</h4>
+            <p id="dailyText" class="text-xl font-bold leading-relaxed text-slate-700 dark:text-slate-200">"وَاتَّقُوا اللَّهَ ۖ وَيُعَلِّمُكُمُ اللَّهُ"</p>
+            <div class="mt-4 flex justify-center gap-1">
+                <span class="w-8 h-1 bg-gold rounded-full"></span>
+                <span class="w-2 h-1 bg-slate-300 rounded-full"></span>
+            </div>
         </section>
 
         <section class="space-y-4">
-            <h3 class="font-black text-blue-900 dark:text-blue-400 px-2">🏆 فرسان التابعين</h3>
-            <div class="flex gap-4 overflow-x-auto pb-4 no-scrollbar" id="honorScroll">
+            <div class="flex justify-between items-end px-4">
+                <h3 class="text-lg font-black"><i class="fas fa-crown text-gold ml-2"></i>لوحة شرف الحفاظ</h3>
+                <a href="#" class="text-[10px] font-bold text-blue-600 underline">عرض الكل</a>
+            </div>
+            <div class="flex gap-4 overflow-x-auto pb-4 no-scrollbar px-2" id="honorWall">
+                <div class="min-w-[160px] glass-panel p-6 text-center gold-glow border-b-4 border-gold">
+                    <div class="text-3xl mb-2">🥇</div>
+                    <p class="text-sm font-black truncate">أحمد يونس</p>
+                    <p class="text-[10px] text-amber-600 font-bold">30 جزء (خاتم)</p>
                 </div>
+                <div class="min-w-[160px] glass-panel p-6 text-center border-b-4 border-slate-300">
+                    <div class="text-3xl mb-2">🥈</div>
+                    <p class="text-sm font-black truncate">محمد العصار</p>
+                    <p class="text-[10px] text-slate-500 font-bold">28 جزء</p>
+                </div>
+                <div class="min-w-[160px] glass-panel p-6 text-center border-b-4 border-orange-400">
+                    <div class="text-3xl mb-2">🥉</div>
+                    <p class="text-sm font-black truncate">قصي يونس</p>
+                    <p class="text-[10px] text-orange-600 font-bold">25 جزء</p>
+                </div>
+            </div>
         </section>
 
-        <section class="glass-card p-8">
-            <div id="loginSection" class="text-center space-y-6">
-                <h2 class="text-2xl font-black">بوابة التابعين الذكية</h2>
-                <p class="text-xs font-bold text-slate-400 italic">سجل دخولك لمتابعة رحلتك في حفظ كتاب الله</p>
-                <input type="number" id="stdID" placeholder="رقم الهوية / الكود" class="w-full h-16 rounded-2xl bg-slate-100 dark:bg-slate-800 border-none text-center text-2xl font-black outline-none focus:ring-4 ring-amber-500/20 transition-all">
-                <button onclick="login()" id="loginBtn" class="w-full h-16 bg-blue-900 text-white rounded-2xl font-black text-lg shadow-xl shadow-blue-900/30 active:scale-95 transition-all">فتح الملف <i class="fas fa-key mr-2"></i></button>
+        <section id="mainPortal" class="glass-panel p-10 relative shadow-2xl">
+            <div id="loginForm" class="space-y-8">
+                <div class="text-center">
+                    <h2 class="text-3xl font-black mb-2">مرحباً بك يا حافظ القرآن</h2>
+                    <p class="text-sm font-bold text-slate-400 italic">أدخل كود الطالب للانتقال إلى عالمك الإنجازي</p>
+                </div>
+                <div class="relative">
+                    <input type="number" id="studentCode" placeholder="أدخل رقم هويتك هنا" 
+                        class="w-full h-20 rounded-[30px] bg-slate-100 dark:bg-slate-800 border-none text-center text-3xl font-black outline-none focus:ring-4 ring-gold/20 transition-all">
+                    <i class="fas fa-fingerprint absolute left-6 top-1/2 -translate-y-1/2 text-slate-300 text-2xl"></i>
+                </div>
+                <button onclick="smartLogin()" id="loginBtn" 
+                    class="w-full h-20 imperial-card text-white rounded-[30px] font-black text-xl shadow-2xl hover:scale-[1.02] active:scale-95 transition-all">
+                    دخول للمنصة الذكية <i class="fas fa-bolt-lightning mr-2 text-gold"></i>
+                </button>
             </div>
 
-            <div id="dashboard" class="hidden space-y-8 animate-fade-in">
-                <div id="idCard" class="imperial-gradient rounded-[40px] p-8 text-white relative overflow-hidden shadow-2xl border border-gold/20">
+            <div id="studentDashboard" class="hidden space-y-10 animate__animated animate__zoomIn">
+                <div id="excellenceCard" class="imperial-card p-10 rounded-[50px] text-white shadow-2xl relative">
+                    <div class="shimmer absolute inset-0 opacity-10"></div>
                     <div class="relative z-10">
-                        <div class="flex justify-between items-start mb-10">
+                        <div class="flex justify-between items-start mb-12">
                             <div>
-                                <h3 id="studentName" class="text-3xl font-black">...</h3>
-                                <p id="mosqueName" class="text-xs font-bold text-blue-200 mt-1">مسجد التابعين - المقر الرئيسي</p>
+                                <h3 id="displayName" class="text-4xl font-black tracking-tight">-- الاسم --</h3>
+                                <p id="displayMentor" class="text-sm font-bold text-gold mt-2 italic"></p>
                             </div>
-                            <div class="bg-gold/20 px-4 py-1 rounded-full text-[10px] font-black uppercase text-gold">نجم صاعد</div>
+                            <img src="https://cdn-icons-png.flaticon.com/512/5219/5219313.png" class="w-20 h-20 drop-shadow-2xl">
                         </div>
-                        <div class="space-y-2">
-                            <div class="flex justify-between text-xs font-bold"><span>إجمالي الأجزاء</span> <span id="partsCount">0 / 30</span></div>
-                            <div class="h-3 bg-white/10 rounded-full overflow-hidden"><div id="progressBar" class="h-full bg-gold w-0 transition-all duration-1000"></div></div>
+                        
+                        <div class="space-y-4">
+                            <div class="flex justify-between text-xs font-black uppercase tracking-widest">
+                                <span>مستوى الإنجاز القرآني</span>
+                                <span id="progressText">0%</span>
+                            </div>
+                            <div class="h-5 bg-white/10 rounded-full p-1 border border-white/5">
+                                <div id="progressBar" class="h-full bg-gradient-to-r from-amber-400 to-gold rounded-full w-0 transition-all duration-1000"></div>
+                            </div>
                         </div>
-                        <button onclick="exportCard()" class="mt-8 text-[10px] bg-gold text-blue-950 px-5 py-2 rounded-xl font-bold">تحميل بطاقة التميز <i class="fas fa-download ml-2"></i></button>
+
+                        <div class="mt-12 flex justify-between items-center">
+                            <div>
+                                <p class="text-[10px] text-white/50 font-black">التقييم الحالي</p>
+                                <p id="displayGrade" class="text-2xl font-black text-gold italic">ممتاز ✨</p>
+                            </div>
+                            <button onclick="downloadCard()" class="bg-white text-blue-900 px-6 py-3 rounded-2xl font-black text-xs shadow-xl">
+                                <i class="fas fa-share-nodes ml-2"></i> مشاركة التميز
+                            </button>
+                        </div>
                     </div>
-                    <i class="fas fa-quran absolute -bottom-10 -left-10 text-white/5 text-[200px] rotate-12"></i>
                 </div>
 
-                <div class="bg-white dark:bg-slate-800 p-6 rounded-[35px] border-2 border-dashed border-blue-200">
-                    <div class="flex items-center gap-3 mb-4">
-                        <div class="w-10 h-10 bg-green-500 text-white rounded-full flex items-center justify-center animate-pulse"><i class="fas fa-microphone"></i></div>
-                        <h4 class="font-black">المعلم الذكي</h4>
+                <div class="bg-white dark:bg-slate-800 p-8 rounded-[40px] border-2 border-dashed border-blue-200 dark:border-slate-700">
+                    <div class="flex items-center gap-4 mb-6">
+                        <div class="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center text-white text-xl animate-pulse shadow-lg shadow-green-500/30">
+                            <i class="fas fa-microphone-lines"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-black text-lg">المساعد الصوتي الذكي</h4>
+                            <p class="text-xs text-slate-400 font-bold">سمّع وردك اليومي، وسيقوم النظام بتدوينه لك</p>
+                        </div>
                     </div>
-                    <button onclick="startSmartTeacher()" class="w-full bg-slate-100 dark:bg-slate-700 py-4 rounded-2xl font-black text-sm">ابدأ التسميع الصوتي</button>
-                    <div id="speechOutput" class="mt-4 p-4 min-h-[60px] bg-blue-50/50 rounded-2xl text-blue-900 font-bold text-sm text-center italic">...</div>
+                    <button onclick="startListening()" id="micBtn" class="w-full py-5 bg-slate-50 dark:bg-slate-900 rounded-2xl font-black border border-slate-100 dark:border-slate-700 hover:bg-green-50 transition-all">
+                        ابدأ التسميع الآن
+                    </button>
+                    <div id="speechResult" class="mt-4 p-6 bg-slate-100 dark:bg-slate-900 rounded-2xl text-center font-bold text-sm min-h-[80px] italic flex items-center justify-center">
+                        ... النص سيظهر هنا عند التحدث ...
+                    </div>
+                </div>
+
+                <div class="space-y-6">
+                    <h3 class="font-black text-lg px-4 italic">خارطة طريقك نحو الختمة 🗺️</h3>
+                    <div id="journeySteps" class="space-y-8 relative">
+                        </div>
                 </div>
             </div>
         </section>
     </main>
 
     <nav class="nav-dock">
-        <button onclick="location.reload()" class="text-gold text-xl"><i class="fas fa-home"></i></button>
-        <a href="circles.html" class="text-white/50 text-xl"><i class="fas fa-mosque"></i></a>
-        <a href="admin.html" class="text-white/50 text-xl"><i class="fas fa-chalkboard-user"></i></a>
-        <a href="donations.html" class="text-white/50 text-xl"><i class="fas fa-heart"></i></a>
+        <button onclick="location.reload()" class="nav-item active"><i class="fas fa-home"></i></button>
+        <button onclick="window.location.href='circles.html'" class="nav-item"><i class="fas fa-mosque"></i></button>
+        <button onclick="window.location.href='admin.html'" class="nav-item"><i class="fas fa-user-shield"></i></button>
+        <button onclick="window.location.href='donations.html'" class="nav-item"><i class="fas fa-heart text-red-500"></i></button>
     </nav>
 
     <script>
+        // الرابط الذي زودتني به
         const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxac2itl7P_W2CtSmSwOufBqvkmOsoZEHxo2z5TZ2Y4YpB60YhKVJGXMlQjZKeFRHN52g/exec";
 
-        async function login() {
-            const id = document.getElementById('stdID').value;
-            if(!id) return alert("أدخل الكود");
-            
-            document.getElementById('loginBtn').innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري التحميل...';
+        // 1. نظام الدخول الذكي
+        async function smartLogin() {
+            const id = document.getElementById('studentCode').value;
+            const btn = document.getElementById('loginBtn');
+            if(!id) return alert("لطفاً، أدخل كود الطالب");
+
+            btn.innerHTML = '<i class="fas fa-circle-notch fa-spin"></i> جاري استدعاء السجلات الإمبراطورية...';
             
             try {
-                const response = await fetch(`${SCRIPT_URL}?id=${id}&action=getStudent`);
-                const data = await response.json();
-                if(data.status === "success") {
-                    document.getElementById('loginSection').classList.add('hidden');
-                    document.getElementById('dashboard').classList.remove('hidden');
-                    document.getElementById('studentName').innerText = data.student.name;
-                    document.getElementById('partsCount').innerText = `${data.student.parts} / 30`;
-                    document.getElementById('progressBar').style.width = (data.student.parts/30*100) + "%";
-                    confetti({ particleCount: 150, spread: 70 });
+                // ملاحظة: الرابط يحتاج أن يدعم معامل action=getStudent&id=...
+                const response = await fetch(`${SCRIPT_URL}?action=getStudent&id=${id}`);
+                const res = await response.json();
+                
+                if(res.status === "success") {
+                    renderDashboard(res.student);
+                    confetti({ particleCount: 200, spread: 80, origin: { y: 0.6 }, colors: ['#c5a059', '#0f172a'] });
                 } else {
-                    alert("الكود خطأ");
-                    document.getElementById('loginBtn').innerText = "فتح الملف";
+                    alert("عذراً، هذا الكود غير مسجل في قاعدة بياناتنا.");
+                    btn.innerHTML = 'دخول للمنصة الذكية <i class="fas fa-bolt-lightning mr-2 text-gold"></i>';
                 }
-            } catch(e) { alert("خطأ في الاتصال"); }
+            } catch(e) {
+                alert("حدث خطأ في الاتصال.. تأكد من صلاحيات الـ Google Script");
+                btn.innerHTML = 'دخول للمنصة الذكية <i class="fas fa-bolt-lightning mr-2 text-gold"></i>';
+            }
         }
 
-        function startSmartTeacher() {
-            const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+        // 2. بناء لوحة التحكم
+        function renderDashboard(data) {
+            document.getElementById('loginForm').classList.add('hidden');
+            document.getElementById('studentDashboard').classList.remove('hidden');
+            
+            document.getElementById('displayName').innerText = data.name;
+            document.getElementById('displayMentor').innerText = "تحت إشراف المحفظ القدير: " + data.mentor;
+            document.getElementById('displayGrade').innerText = data.grade || "ممتاز ✨";
+            
+            const pct = Math.round((data.parts / 30) * 100);
+            document.getElementById('progressText').innerText = pct + "%";
+            document.getElementById('progressBar').style.width = pct + "%";
+
+            // بناء رحلة الإنجاز
+            const journey = document.getElementById('journeySteps');
+            journey.innerHTML = `
+                <div class="glass-panel p-6 step-active">
+                    <p class="text-[10px] font-black text-gold uppercase tracking-tighter">المحطة الحالية</p>
+                    <h5 class="font-black text-lg">${data.today || 'تثبيت ومراجعة'}</h5>
+                    <p class="text-xs font-bold text-slate-400 mt-1 italic">رسالة المعلم: ${data.msg || 'واصل الاجتهاد يا بطل'}</p>
+                </div>
+                <div class="glass-panel p-6 opacity-40">
+                    <p class="text-[10px] font-black uppercase tracking-tighter">المحطة القادمة</p>
+                    <h5 class="font-black text-lg">الانتقال للجزء التالي</h5>
+                    <p class="text-xs font-bold mt-1">بقي لك القليل للوصول لهدفك الجديد</p>
+                </div>
+            `;
+        }
+
+        // 3. نظام التسميع الصوتي (Voice-to-Text)
+        function startListening() {
+            const btn = document.getElementById('micBtn');
+            const output = document.getElementById('speechResult');
+            
+            if (!('webkitSpeechRecognition' in window)) {
+                return alert("متصفحك لا يدعم التعرف على الصوت. جرب Chrome.");
+            }
+
+            const recognition = new webkitSpeechRecognition();
             recognition.lang = 'ar-SA';
             recognition.start();
-            document.getElementById('speechOutput').innerText = "اسمعك الآن...";
+
+            btn.innerHTML = '<span class="flex items-center justify-center gap-2"><span class="w-3 h-3 bg-red-500 rounded-full animate-ping"></span> جاري الاستماع لتلاوتك...</span>';
+            
             recognition.onresult = (event) => {
-                document.getElementById('speechOutput').innerText = event.results[0][0].transcript;
+                const text = event.results[0][0].transcript;
+                output.innerText = `"${text}"`;
+                btn.innerHTML = 'ابدأ التسميع الآن';
+            };
+
+            recognition.onerror = () => {
+                btn.innerHTML = 'ابدأ التسميع الآن';
+                alert("تعذر التقاط الصوت، حاول مرة أخرى.");
             };
         }
 
-        function exportCard() {
-            html2canvas(document.querySelector("#idCard")).then(canvas => {
+        // 4. تحميل بطاقة التميز
+        function downloadCard() {
+            const card = document.getElementById('excellenceCard');
+            html2canvas(card, { backgroundColor: null, borderRadius: 50 }).then(canvas => {
                 const link = document.createElement('a');
-                link.download = 'Excellence-Card.png';
+                link.download = `بطاقة_تميز_التابعين.png`;
                 link.href = canvas.toDataURL();
                 link.click();
             });
         }
 
-        // لوحة الشرف بأسماء حقيقية من بياناتك
-        const topStudents = [
-            {name: "أحمد يونس", parts: 30, rank: "🥇"},
-            {name: "محمد العصار", parts: 28, rank: "🥈"},
-            {name: "قصي يونس", parts: 25, rank: "🥉"}
-        ];
-        document.getElementById('honorScroll').innerHTML = topStudents.map(s => `
-            <div class="min-w-[140px] glass-card p-4 text-center border-b-4 border-gold">
-                <div class="text-2xl mb-1">${s.rank}</div>
-                <p class="text-[11px] font-black text-blue-900">${s.name}</p>
-                <p class="text-[9px] font-bold text-slate-400">${s.parts} جزء</p>
-            </div>
-        `).join('');
+        // 5. تبديل الوضع الليلي
+        function toggleTheme() {
+            document.body.classList.toggle('dark-mode');
+            const isDark = document.body.classList.contains('dark-mode');
+            document.getElementById('themeIcon').className = isDark ? 'fas fa-sun' : 'fas fa-moon';
+        }
     </script>
 </body>
 </html>
