@@ -1,164 +1,50 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>الحلقات والمساجد | منصة التابعين</title>
-    <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>خريطة الحلقات</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap');
+        body { font-family: 'Tajawal', sans-serif; background: #f8fafc; padding-bottom: 90px; }
+        .nav-floating { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); width: 90%; max-width: 450px; background: #1e3a8a; border-radius: 25px; padding: 15px; display: flex; justify-content: space-around; box-shadow: 0 15px 30px rgba(0,0,0,0.2); }
+        .nav-item { color: rgba(255,255,255,0.5); font-size: 20px; } .nav-item.active { color: #d4af37; }
+        .mosque-card { background: white; border-radius: 20px; padding: 20px; margin-bottom: 15px; border-right: 6px solid #1e3a8a; box-shadow: 0 5px 15px rgba(0,0,0,0.05); transition: 0.3s; }
+        .mosque-card:hover { transform: translateX(-5px); }
+    </style>
 </head>
-<body class="bg-slate-50">
-
-    <header class="main-header shadow-sm">
-        <div class="logo-container">
-            <div class="logo-icon shadow-blue-200 shadow-lg">
-                <i class="fas fa-mosque"></i>
-            </div>
-            <div>
-                <h1 class="text-xl font-black text-blue-900">خريطة الحلقات</h1>
-                <p class="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Tabaeen Centers Map</p>
-            </div>
+<body class="max-w-md mx-auto p-5">
+    <h1 class="text-2xl font-black text-blue-900 mb-6">مراكز التحفيظ</h1>
+    
+    <div class="mosque-card">
+        <div class="flex justify-between items-center mb-2">
+            <h3 class="font-black text-lg">مسجد التابعين (الرئيسي)</h3>
+            <i class="fas fa-map-marker-alt text-red-500"></i>
         </div>
-        <a href="index.html" class="text-slate-400 hover:text-blue-900 transition-colors">
-            <i class="fas fa-times-circle text-2xl"></i>
-        </a>
-    </header>
-
-    <main class="max-w-5xl mx-auto p-4 md:p-8 space-y-8">
-        
-        <section class="space-y-4">
-            <div class="flex items-center gap-3 border-r-4 border-blue-900 pr-4">
-                <h2 class="text-2xl font-black text-slate-800">المقر الرئيسي: مسجد التابعين</h2>
-                <span class="bg-blue-100 text-blue-700 text-[10px] px-3 py-1 rounded-full font-bold">نشط حالياً</span>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                <script>
-                    const teachersTabaeen = ["ناهض العصار", "محمد العصار", "أحمد جحجوح", "أحمد يونس", "أحمد أبو سلمية", "قصي يونس"];
-                    teachersTabaeen.forEach(name => {
-                        document.write(`
-                            <div class="official-card border-r-4 border-r-blue-600 hover:border-r-gold transition-all group">
-                                <div class="flex items-center gap-4">
-                                    <div class="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center text-blue-600 group-hover:bg-blue-600 group-hover:text-white transition-colors">
-                                        <i class="fas fa-user-tie"></i>
-                                    </div>
-                                    <div>
-                                        <h3 class="font-black text-slate-700 text-sm italic">الشيخ: ${name}</h3>
-                                        <p class="text-[10px] text-slate-400">محفظ معتمد لدى المركز</p>
-                                    </div>
-                                </div>
-                                <button onclick="openRegister('${name}', 'مسجد التابعين')" class="btn-primary mt-4 py-3 text-xs">
-                                    <i class="fas fa-plus-circle"></i> طلب انتساب للحلقة
-                                </button>
-                            </div>
-                        `);
-                    });
-                </script>
-            </div>
-        </section>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div class="official-card bg-white border-t-4 border-t-blue-900">
-                <h3 class="font-black text-lg mb-4 text-blue-900"><i class="fas fa-place-of-worship ml-2"></i>مسجد معاذ بن جبل</h3>
-                <div class="space-y-3">
-                    <div class="p-3 bg-slate-50 rounded-xl flex justify-between items-center">
-                        <span class="text-sm font-bold text-slate-600">طاقم التحفيظ (العمصي)</span>
-                        <button onclick="openRegister('آل العمصي', 'مسجد معاذ')" class="text-blue-600 text-xs font-black hover:underline">تسجيل</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="official-card bg-pink-50 border-t-4 border-t-pink-500 border-none">
-                <h3 class="font-black text-lg mb-2 text-pink-700"><i class="fas fa-venus ml-2"></i>مسجد التابعين للنساء</h3>
-                <p class="text-xs text-pink-600 mb-4 italic">بإشراف أ. أفنان أبو الحسن</p>
-                <a href="https://wa.me/970XXXXXXXXX" class="btn-primary bg-pink-600 shadow-pink-200 border-none hover:bg-pink-700">
-                    <i class="fab fa-whatsapp"></i> تواصل مع الإدارة النسائية
-                </a>
-            </div>
+        <p class="text-xs text-slate-500 font-bold mb-2">نخبة المحفظين:</p>
+        <div class="flex flex-wrap gap-2">
+            <span class="bg-blue-50 text-blue-700 text-[10px] px-2 py-1 rounded">ناهض العصار</span>
+            <span class="bg-blue-50 text-blue-700 text-[10px] px-2 py-1 rounded">محمد العصار</span>
+            <span class="bg-blue-50 text-blue-700 text-[10px] px-2 py-1 rounded">أحمد يونس</span>
         </div>
+    </div>
 
-        <div id="regModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-[2000] hidden flex items-center justify-center p-4">
-            <div class="official-card w-full max-w-md bg-white animate-in slide-in-from-bottom-4 duration-300">
-                <div class="flex justify-between items-center mb-6">
-                    <h3 class="font-black text-xl text-blue-900">طلب انتساب جديد</h3>
-                    <button onclick="closeModal()" class="text-slate-400"><i class="fas fa-times text-xl"></i></button>
-                </div>
-                <form id="enrollmentForm" class="space-y-4">
-                    <input type="hidden" id="selectedTeacher" name="teacher">
-                    <input type="hidden" id="selectedMosque" name="mosque">
-                    
-                    <div>
-                        <label class="text-[10px] font-black text-slate-400 mr-2 uppercase">اسم الطفل الرباعي</label>
-                        <input type="text" name="child_name" required placeholder="أدخل الاسم كاملاً">
-                    </div>
-                    <div>
-                        <label class="text-[10px] font-black text-slate-400 mr-2 uppercase">رقم هاتف ولي الأمر (واتساب)</label>
-                        <input type="tel" name="parent_phone" required placeholder="059xxxxxxx">
-                    </div>
-                    
-                    <div class="bg-blue-50 p-4 rounded-xl mb-4">
-                        <p class="text-[10px] text-blue-700 font-bold leading-relaxed">
-                            <i class="fas fa-info-circle ml-1"></i> سيتم مراجعة طلبك من قبل الإدارة، وسيتواصل معكم الشيخ المختار خلال 48 ساعة.
-                        </p>
-                    </div>
+    <div class="mosque-card border-r-amber-500" style="border-right-color: #f59e0b;">
+        <h3 class="font-black text-lg">مسجد معاذ بن جبل</h3>
+        <p class="text-xs text-slate-500 mt-1">بإشراف آل العمصي الكرام</p>
+    </div>
 
-                    <button type="submit" class="btn-primary py-4">
-                        <i class="fas fa-paper-plane"></i> تأكيد إرسال الطلب
-                    </button>
-                </form>
-            </div>
-        </div>
+    <div class="mosque-card border-r-pink-500 bg-pink-50/30" style="border-right-color: #ec4899;">
+        <h3 class="font-black text-lg text-pink-800">مركز التابعين للنساء</h3>
+        <p class="text-xs text-pink-600 mt-1">للتواصل: أ. أفنان أبو الحسن</p>
+    </div>
 
-    </main>
-
-    <nav class="nav-bar">
-        <a href="index.html" class="nav-item"><i class="fas fa-home"></i>الرئيسية</a>
-        <a href="mosques.html" class="nav-item active"><i class="fas fa-mosque"></i>الحلقات</a>
-        <a href="student.html" class="nav-item"><i class="fas fa-user-graduate"></i>ملفي</a>
-        <a href="admin.html" class="nav-item"><i class="fas fa-cog"></i>الإدارة</a>
+    <nav class="nav-floating">
+        <a href="index.html" class="nav-item"><i class="fas fa-home"></i></a>
+        <a href="mosques.html" class="nav-item active"><i class="fas fa-mosque"></i></a>
+        <a href="student.html" class="nav-item"><i class="fas fa-user-graduate"></i></a>
+        <a href="admin.html" class="nav-item"><i class="fas fa-cog"></i></a>
     </nav>
-
-    <script src="main.js"></script>
-    <script>
-        function openRegister(teacher, mosque) {
-            document.getElementById('selectedTeacher').value = teacher;
-            document.getElementById('selectedMosque').value = mosque;
-            document.getElementById('regModal').classList.remove('hidden');
-            document.body.style.overflow = 'hidden'; // منع التمرير عند فتح النافذة
-        }
-
-        function closeModal() {
-            document.getElementById('regModal').classList.add('hidden');
-            document.body.style.overflow = 'auto';
-        }
-
-        // معالجة فورم التسجيل
-        document.getElementById('enrollmentForm').onsubmit = async (e) => {
-            e.preventDefault();
-            const btn = e.target.querySelector('button');
-            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري الإرسال...';
-            btn.disabled = true;
-
-            const formData = {
-                child_name: e.target.child_name.value,
-                parent_phone: e.target.parent_phone.value,
-                teacher: document.getElementById('selectedTeacher').value,
-                mosque: document.getElementById('selectedMosque').value
-            };
-
-            const success = await registerNewStudent(formData);
-            if(success) {
-                alert("تم استلام طلبك بنجاح يا بطل! سيتم التواصل معك قريباً.");
-                closeModal();
-                e.target.reset();
-            } else {
-                alert("حدث خطأ، يرجى المحاولة لاحقاً.");
-            }
-            btn.innerHTML = '<i class="fas fa-paper-plane"></i> تأكيد إرسال الطلب';
-            btn.disabled = false;
-        };
-    </script>
 </body>
 </html>
