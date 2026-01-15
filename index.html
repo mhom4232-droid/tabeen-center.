@@ -3,141 +3,75 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>منصة التابعين | الإدارة الذكية</title>
+    <title>مركز التابعين | المنصة الإمبراطورية</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@300;500;700;900&display=swap');
-        
-        :root {
-            --primary: #1a365d;
-            --secondary: #d4af37;
-            --bg-light: #f8fafc;
-            --bg-dark: #0f172a;
-        }
-
-        body {
-            font-family: 'Tajawal', sans-serif;
-            background-color: var(--bg-light);
-            transition: all 0.4s ease;
-        }
-
-        .dark-mode {
-            background-color: var(--bg-dark);
-            color: white;
-        }
-
-        /* ميزة 1: التصميم الزجاجي الفاخر */
-        .glass-card {
-            background: rgba(255, 255, 255, 0.7);
-            backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            border-radius: 30px;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.05);
-        }
-
-        .dark-mode .glass-card {
-            background: rgba(30, 41, 59, 0.7);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
-        /* ميزة 2: رحلة الإنجاز التفاعلية */
-        .journey-line {
-            position: relative;
-            padding-right: 40px;
-        }
-        .journey-line::before {
-            content: '';
-            position: absolute;
-            right: 15px;
-            top: 0;
-            bottom: 0;
-            width: 2px;
-            background: linear-gradient(to bottom, #d4af37, #1a365d);
-        }
-
-        /* ميزة 3: أنيميشن سلس للظهور */
-        .fade-in { animation: fadeIn 0.8s ease-out; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-
-        /* ميزة 4: شريط التنقل السفلي الذكي */
-        .nav-dock {
-            position: fixed;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 90%;
-            max-width: 450px;
-            background: #1a365d;
-            border-radius: 25px;
-            display: flex;
-            justify-content: space-around;
-            padding: 15px;
-            z-index: 1000;
-            box-shadow: 0 15px 35px rgba(26, 54, 93, 0.4);
-        }
+        :root { --primary: #0f172a; --gold: #d4af37; --bg: #f8fafc; }
+        body { font-family: 'Tajawal', sans-serif; background-color: var(--bg); transition: 0.4s; }
+        .dark-mode { background-color: #020617; color: white; }
+        .glass-card { background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.3); border-radius: 35px; box-shadow: 0 15px 35px rgba(0,0,0,0.05); }
+        .dark-mode .glass-card { background: rgba(30, 41, 59, 0.7); border-color: rgba(255,255,255,0.05); }
+        .imperial-gradient { background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%); }
+        .nav-dock { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); width: 90%; max-width: 450px; background: #0f172a; border-radius: 30px; display: flex; justify-content: space-around; padding: 18px; z-index: 1000; border: 1px solid rgba(212, 175, 55, 0.3); }
     </style>
 </head>
-<body class="selection:bg-yellow-200">
+<body class="selection:bg-yellow-200 pb-32">
 
     <header class="p-6 flex justify-between items-center">
         <div class="flex items-center gap-3">
-            <div class="w-12 h-12 bg-blue-900 rounded-2xl flex items-center justify-center text-white text-2xl shadow-lg">
+            <div class="w-12 h-12 bg-blue-900 rounded-2xl flex items-center justify-center text-white text-2xl shadow-xl border border-gold/30">
                 <i class="fas fa-mosque"></i>
             </div>
-            <h1 class="text-xl font-black text-blue-900 dark:text-white">منصة التابعين <span class="text-[10px] block font-bold opacity-50 uppercase tracking-tighter">Imperial Edifice Edition</span></h1>
+            <div>
+                <h1 class="text-xl font-black text-blue-900 dark:text-white">مركز التابعين</h1>
+                <span class="text-[9px] block font-bold text-amber-600 uppercase tracking-widest">The Followers Center</span>
+            </div>
         </div>
-        <button onclick="toggleDarkMode()" class="w-12 h-12 rounded-2xl bg-white dark:bg-slate-800 shadow-md flex items-center justify-center text-xl transition-all active:scale-90">
-            <i class="fas fa-moon" id="themeIcon"></i>
+        <button onclick="document.body.classList.toggle('dark-mode')" class="w-12 h-12 rounded-2xl bg-white dark:bg-slate-800 shadow-md flex items-center justify-center text-xl transition-all">
+            <i class="fas fa-moon"></i>
         </button>
     </header>
 
-    <main class="max-w-4xl mx-auto p-4 space-y-8 pb-32">
+    <main class="max-w-4xl mx-auto p-4 space-y-8">
 
-        <section id="inspirationBox" class="glass-card p-6 fade-in text-center relative overflow-hidden">
-            <i class="fas fa-quote-right absolute -top-4 -right-4 text-6xl text-blue-900/5"></i>
+        <section class="glass-card p-6 text-center relative overflow-hidden border-r-8 border-gold">
             <h4 class="text-xs font-black text-amber-600 mb-2">رسالة اليوم للسماء</h4>
             <p id="dailyMsg" class="text-lg font-bold text-slate-700 dark:text-slate-200">"خياركم من تعلم القرآن وعلمه.."</p>
         </section>
 
-        <section id="wallOfHonor" class="space-y-4">
-            <div class="flex justify-between items-center px-2">
-                <h3 class="font-black text-blue-900 dark:text-blue-400">🏆 لوحة الشرف</h3>
-                <span class="text-[10px] font-bold opacity-50">تحديث تلقائي</span>
-            </div>
+        <section class="space-y-4">
+            <h3 class="font-black text-blue-900 dark:text-blue-400 px-2">🏆 فرسان التابعين</h3>
             <div class="flex gap-4 overflow-x-auto pb-4 no-scrollbar" id="honorScroll">
-                <div class="min-w-[140px] glass-card p-4 text-center">
-                    <div class="w-12 h-12 bg-amber-100 rounded-full mx-auto mb-2 flex items-center justify-center text-xl">🥇</div>
-                    <p class="text-[10px] font-black">جاري التحميل...</p>
                 </div>
-            </div>
         </section>
 
-        <section id="studentPortal" class="glass-card p-8 fade-in">
+        <section class="glass-card p-8">
             <div id="loginSection" class="text-center space-y-6">
-                <h2 class="text-2xl font-black">بوابة التابعين</h2>
+                <h2 class="text-2xl font-black">بوابة التابعين الذكية</h2>
                 <p class="text-xs font-bold text-slate-400 italic">سجل دخولك لمتابعة رحلتك في حفظ كتاب الله</p>
-                <input type="number" id="stdID" placeholder="رقم الهوية / الكود" class="w-full h-16 rounded-2xl bg-slate-100 dark:bg-slate-800 border-none text-center text-2xl font-black outline-none focus:ring-4 ring-blue-500/20 transition-all">
+                <input type="number" id="stdID" placeholder="رقم الهوية / الكود" class="w-full h-16 rounded-2xl bg-slate-100 dark:bg-slate-800 border-none text-center text-2xl font-black outline-none focus:ring-4 ring-amber-500/20 transition-all">
                 <button onclick="login()" id="loginBtn" class="w-full h-16 bg-blue-900 text-white rounded-2xl font-black text-lg shadow-xl shadow-blue-900/30 active:scale-95 transition-all">فتح الملف <i class="fas fa-key mr-2"></i></button>
             </div>
 
             <div id="dashboard" class="hidden space-y-8 animate-fade-in">
-                <div id="idCard" class="bg-gradient-to-br from-blue-900 to-indigo-900 rounded-[40px] p-8 text-white relative overflow-hidden shadow-2xl">
+                <div id="idCard" class="imperial-gradient rounded-[40px] p-8 text-white relative overflow-hidden shadow-2xl border border-gold/20">
                     <div class="relative z-10">
                         <div class="flex justify-between items-start mb-10">
                             <div>
                                 <h3 id="studentName" class="text-3xl font-black">...</h3>
                                 <p id="mosqueName" class="text-xs font-bold text-blue-200 mt-1">مسجد التابعين - المقر الرئيسي</p>
                             </div>
-                            <div id="rankBadge" class="bg-white/20 px-4 py-1 rounded-full text-[10px] font-black uppercase">برعم صاعد</div>
+                            <div class="bg-gold/20 px-4 py-1 rounded-full text-[10px] font-black uppercase text-gold">نجم صاعد</div>
                         </div>
                         <div class="space-y-2">
-                            <div class="flex justify-between text-xs font-bold"><span>إجمالي الأجزاء المحفوظة</span> <span id="partsCount">0 / 30</span></div>
-                            <div class="h-3 bg-white/20 rounded-full overflow-hidden"><div id="progressBar" class="h-full bg-amber-400 w-0 transition-all duration-1000"></div></div>
+                            <div class="flex justify-between text-xs font-bold"><span>إجمالي الأجزاء</span> <span id="partsCount">0 / 30</span></div>
+                            <div class="h-3 bg-white/10 rounded-full overflow-hidden"><div id="progressBar" class="h-full bg-gold w-0 transition-all duration-1000"></div></div>
                         </div>
-                        <button onclick="exportCard()" class="mt-8 text-[10px] bg-white/10 hover:bg-white/20 px-4 py-2 rounded-xl transition-all"><i class="fas fa-download ml-2"></i> تحميل بطاقة التميز</button>
+                        <button onclick="exportCard()" class="mt-8 text-[10px] bg-gold text-blue-950 px-5 py-2 rounded-xl font-bold">تحميل بطاقة التميز <i class="fas fa-download ml-2"></i></button>
                     </div>
                     <i class="fas fa-quran absolute -bottom-10 -left-10 text-white/5 text-[200px] rotate-12"></i>
                 </div>
@@ -147,95 +81,78 @@
                         <div class="w-10 h-10 bg-green-500 text-white rounded-full flex items-center justify-center animate-pulse"><i class="fas fa-microphone"></i></div>
                         <h4 class="font-black">المعلم الذكي</h4>
                     </div>
-                    <p class="text-xs text-slate-500 font-bold mb-4">اضغط على الميكروفون وابدأ بالتسميع، المعلم سيقوم بتدوين قراءتك فوراً.</p>
-                    <button onclick="startSmartTeacher()" class="w-full bg-slate-100 dark:bg-slate-700 py-4 rounded-2xl font-black text-sm hover:bg-blue-50 transition-all">ابدأ التسميع الصوتي</button>
-                    <div id="speechOutput" class="mt-4 p-4 min-h-[60px] bg-blue-50/50 rounded-2xl text-blue-900 font-bold text-sm text-center">...</div>
-                </div>
-
-                <div class="space-y-4">
-                    <h3 class="font-black px-2"><i class="fas fa-map-signs ml-2 text-amber-600"></i> مسار الإنجاز</h3>
-                    <div class="journey-line space-y-6" id="journeyMap">
-                        </div>
+                    <button onclick="startSmartTeacher()" class="w-full bg-slate-100 dark:bg-slate-700 py-4 rounded-2xl font-black text-sm">ابدأ التسميع الصوتي</button>
+                    <div id="speechOutput" class="mt-4 p-4 min-h-[60px] bg-blue-50/50 rounded-2xl text-blue-900 font-bold text-sm text-center italic">...</div>
                 </div>
             </div>
         </section>
-
     </main>
 
     <nav class="nav-dock">
-        <button class="text-white text-xl opacity-100"><i class="fas fa-home"></i></button>
-        <button onclick="alert('قريباً: بوابة التبرع')" class="text-white/50 text-xl"><i class="fas fa-heart"></i></button>
-        <button onclick="location.reload()" class="text-white/50 text-xl"><i class="fas fa-user"></i></button>
-        <button onclick="alert('لوحة التحكم للمعلم')" class="text-white/50 text-xl"><i class="fas fa-chalkboard-user"></i></button>
+        <button onclick="location.reload()" class="text-gold text-xl"><i class="fas fa-home"></i></button>
+        <a href="circles.html" class="text-white/50 text-xl"><i class="fas fa-mosque"></i></a>
+        <a href="admin.html" class="text-white/50 text-xl"><i class="fas fa-chalkboard-user"></i></a>
+        <a href="donations.html" class="text-white/50 text-xl"><i class="fas fa-heart"></i></a>
     </nav>
 
     <script>
-        // الرابط الجديد الذي زودتني به
         const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxac2itl7P_W2CtSmSwOufBqvkmOsoZEHxo2z5TZ2Y4YpB60YhKVJGXMlQjZKeFRHN52g/exec";
-
-        // ميزة 11: نظام التشغيل الذكي (Auto Initialization)
-        function toggleDarkMode() {
-            document.body.classList.toggle('dark-mode');
-            const isDark = document.body.classList.contains('dark-mode');
-            document.getElementById('themeIcon').className = isDark ? 'fas fa-sun' : 'fas fa-moon';
-        }
 
         async function login() {
             const id = document.getElementById('stdID').value;
-            const btn = document.getElementById('loginBtn');
-            if(!id) return alert("من فضلك أدخل كود الطالب");
-
-            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري الاتصال بالسيرفر...';
+            if(!id) return alert("أدخل الكود");
+            
+            document.getElementById('loginBtn').innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري التحميل...';
             
             try {
-                // ملاحظة: الرابط يحتاج أن يدعم GET أو POST حسب برمجته
                 const response = await fetch(`${SCRIPT_URL}?id=${id}&action=getStudent`);
                 const data = await response.json();
-
                 if(data.status === "success") {
-                    showDashboard(data.student);
-                    confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 } });
+                    document.getElementById('loginSection').classList.add('hidden');
+                    document.getElementById('dashboard').classList.remove('hidden');
+                    document.getElementById('studentName').innerText = data.student.name;
+                    document.getElementById('partsCount').innerText = `${data.student.parts} / 30`;
+                    document.getElementById('progressBar').style.width = (data.student.parts/30*100) + "%";
+                    confetti({ particleCount: 150, spread: 70 });
                 } else {
-                    alert("عذراً، الكود غير مسجل في السجلات");
-                    btn.innerText = "فتح الملف";
+                    alert("الكود خطأ");
+                    document.getElementById('loginBtn').innerText = "فتح الملف";
                 }
-            } catch(e) {
-                // محاكاة للعمل إذا كان هناك خطأ CORS (للتطوير فقط)
-                console.error("Connection Error", e);
-                btn.innerText = "فشل الاتصال";
-            }
+            } catch(e) { alert("خطأ في الاتصال"); }
         }
 
-        function showDashboard(student) {
-            document.getElementById('loginSection').classList.add('hidden');
-            document.getElementById('dashboard').classList.remove('hidden');
-            
-            document.getElementById('studentName').innerText = student.name;
-            document.getElementById('partsCount').innerText = `${student.parts} / 30`;
-            const pct = (student.parts / 30) * 100;
-            document.getElementById('progressBar').style.width = pct + "%";
-            
-            // تحديث الرحلة التفاعلية
-            const journey = document.getElementById('journeyMap');
-            journey.innerHTML = `
-                <div class="glass-card p-4 border-r-4 border-amber-500">
-                    <p class="text-[10px] font-black text-amber-600">تم الإنجاز</p>
-                    <p class="text-sm font-bold">حفظ ${student.parts} أجزاء</p>
-                </div>
-                <div class="glass-card p-4 opacity-50">
-                    <p class="text-[10px] font-black">الهدف القادم</p>
-                    <p class="text-sm font-bold">الوصول لـ ${parseInt(student.parts)+1} أجزاء</p>
-                </div>
-            `;
-        }
-
-        // ميزة 12: محرك التسميع الذكي (Voice Recognition)
         function startSmartTeacher() {
             const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
             recognition.lang = 'ar-SA';
             recognition.start();
-            document.getElementById('speechOutput').innerText = "اسمعك الآن.. ابدأ التلاوة";
-
+            document.getElementById('speechOutput').innerText = "اسمعك الآن...";
             recognition.onresult = (event) => {
-                const text = event.results[0][0].transcript;
-                document.getElementById('speechOutput').innerText = `تم رصد قولك: ${
+                document.getElementById('speechOutput').innerText = event.results[0][0].transcript;
+            };
+        }
+
+        function exportCard() {
+            html2canvas(document.querySelector("#idCard")).then(canvas => {
+                const link = document.createElement('a');
+                link.download = 'Excellence-Card.png';
+                link.href = canvas.toDataURL();
+                link.click();
+            });
+        }
+
+        // لوحة الشرف بأسماء حقيقية من بياناتك
+        const topStudents = [
+            {name: "أحمد يونس", parts: 30, rank: "🥇"},
+            {name: "محمد العصار", parts: 28, rank: "🥈"},
+            {name: "قصي يونس", parts: 25, rank: "🥉"}
+        ];
+        document.getElementById('honorScroll').innerHTML = topStudents.map(s => `
+            <div class="min-w-[140px] glass-card p-4 text-center border-b-4 border-gold">
+                <div class="text-2xl mb-1">${s.rank}</div>
+                <p class="text-[11px] font-black text-blue-900">${s.name}</p>
+                <p class="text-[9px] font-bold text-slate-400">${s.parts} جزء</p>
+            </div>
+        `).join('');
+    </script>
+</body>
+</html>
