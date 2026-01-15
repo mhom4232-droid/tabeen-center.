@@ -2,73 +2,117 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>مركز التابعين القرآني | غزة</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>منصة التابعين العالمية</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap');
-        body { font-family: 'Tajawal', sans-serif; background: #f8fafc; padding-bottom: 90px; overflow-x: hidden; }
-        .hero-bg { background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%); position: relative; overflow: hidden; }
-        .royal-card { background: white; border-radius: 30px; box-shadow: 0 15px 35px -5px rgba(30, 58, 138, 0.1); border: 1px solid #eef2f6; transition: 0.3s; }
-        .royal-card:active { transform: scale(0.98); }
-        .bottom-nav { position: fixed; bottom: 20px; left: 20px; right: 20px; background: #1e3a8a; height: 75px; display: flex; justify-content: space-around; align-items: center; border-radius: 25px; box-shadow: 0 10px 30px rgba(30, 58, 138, 0.3); z-index: 1000; }
-        .nav-link { text-decoration: none; color: rgba(255,255,255,0.6); display: flex; flex-direction: column; align-items: center; font-size: 11px; font-weight: bold; gap: 4px; }
-        .nav-link.active { color: #d4af37; }
-        .nav-link i { font-size: 24px; }
-        .gold-glow { box-shadow: 0 0 20px rgba(212, 175, 55, 0.3); }
+        @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&display=swap');
+        :root { --primary: #1e3a8a; --gold: #d4af37; --bg: #f8fafc; --text: #1e293b; }
+        body.dark { --primary: #3b82f6; --bg: #0f172a; --text: #f1f5f9; }
+        body { font-family: 'Tajawal', sans-serif; background: var(--bg); color: var(--text); padding-bottom: 90px; transition: 0.3s; user-select: none; -webkit-tap-highlight-color: transparent; }
+        
+        /* Glassmorphism */
+        .glass { background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.3); }
+        .dark .glass { background: rgba(30, 41, 59, 0.7); border: 1px solid rgba(255, 255, 255, 0.05); }
+
+        .hero-card { background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%); border-radius: 0 0 40px 40px; box-shadow: 0 10px 40px -10px rgba(37, 99, 235, 0.4); }
+        .nav-floating { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); width: 90%; max-width: 450px; background: #1e3a8a; border-radius: 25px; padding: 15px; display: flex; justify-content: space-around; box-shadow: 0 15px 30px rgba(0,0,0,0.2); z-index: 1000; }
+        .nav-item { color: rgba(255,255,255,0.5); font-size: 20px; transition: 0.3s; position: relative; }
+        .nav-item.active { color: #d4af37; transform: translateY(-5px); }
+        .nav-item.active::after { content: ''; position: absolute; bottom: -5px; left: 50%; transform: translateX(-50%); width: 5px; height: 5px; background: #d4af37; border-radius: 50%; }
+
+        /* Animation */
+        @keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-10px); } 100% { transform: translateY(0px); } }
+        .floating { animation: float 4s ease-in-out infinite; }
     </style>
 </head>
-<body>
+<body class="max-w-md mx-auto min-h-screen relative overflow-x-hidden">
 
-    <header class="p-5 bg-white flex justify-between items-center shadow-sm sticky top-0 z-50">
-        <div class="flex items-center gap-3">
-            <div class="w-12 h-12 bg-blue-900 text-white rounded-2xl flex items-center justify-center shadow-lg"><i class="fas fa-mosque text-2xl"></i></div>
+    <header class="hero-card p-6 text-white relative overflow-hidden">
+        <div class="flex justify-between items-start mb-6 relative z-10">
             <div>
-                <h1 class="font-black text-blue-900 text-lg">منصة التابعين</h1>
-                <p class="text-[9px] text-slate-400 font-bold uppercase tracking-widest">Al-Tabaeen Center</p>
+                <h1 class="font-black text-2xl tracking-tighter">مركز التابعين</h1>
+                <p class="text-[11px] opacity-80 font-bold uppercase tracking-widest">Gaza Quranic Center</p>
+            </div>
+            <button onclick="toggleTheme()" class="w-10 h-10 bg-white/10 rounded-full backdrop-blur flex items-center justify-center"><i class="fas fa-moon"></i></button>
+        </div>
+
+        <div class="bg-white/10 backdrop-blur-md rounded-2xl p-4 flex items-center justify-between border border-white/10 relative z-10">
+            <div>
+                <p class="text-[10px] text-blue-200 uppercase font-bold">الصلاة القادمة (غزة)</p>
+                <h2 class="text-xl font-black mt-1" id="nextPrayer">جاري التحميل...</h2>
+            </div>
+            <div class="text-right">
+                <i class="fas fa-kaaba text-3xl opacity-50"></i>
             </div>
         </div>
-        <div class="bg-blue-50 px-3 py-1 rounded-full text-[10px] font-black text-blue-800 border border-blue-100">بإشراف أ. إسماعيل نوفل</div>
+        
+        <i class="fas fa-quran absolute -bottom-10 -left-10 text-white/5 text-[180px] rotate-12"></i>
     </header>
 
-    <main class="max-w-md mx-auto p-4 space-y-6">
-        <div class="hero-bg p-10 rounded-[45px] text-white text-center shadow-2xl card-fakhama">
-            <h2 class="text-3xl font-black mb-3">صرح القرآن الكريم</h2>
-            <p class="text-xs opacity-80 mb-8 leading-relaxed">بناء الجيل الصاعد على مائدة الوحي العظيم، جودة في التحفيظ وتميز في التربية.</p>
-            <div class="flex gap-3">
-                <a href="student.html" class="flex-1 bg-white text-blue-900 py-4 rounded-2xl font-black text-sm shadow-xl hover:bg-slate-50 transition-all">بوابة الطالب</a>
-                <a href="mosques.html" class="flex-1 bg-blue-500/30 backdrop-blur-md border border-white/20 py-4 rounded-2xl font-black text-sm">التسجيل</a>
+    <main class="p-5 space-y-5">
+        
+        <div class="glass p-4 rounded-3xl flex items-center gap-4 shadow-sm">
+            <div onclick="toggleAudio()" class="w-12 h-12 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center cursor-pointer shadow-inner">
+                <i class="fas fa-play" id="playIcon"></i>
             </div>
-            <i class="fas fa-star absolute -bottom-4 -left-4 text-white/5 text-[150px]"></i>
+            <div class="flex-1">
+                <h4 class="font-bold text-sm">إذاعة القرآن الكريم</h4>
+                <div class="h-1 bg-slate-200 rounded-full mt-2 w-full overflow-hidden">
+                    <div class="h-full bg-blue-600 w-1/3 animate-pulse"></div>
+                </div>
+            </div>
+            <audio id="quranAudio" src="https://server12.mp3quran.net/maher/001.mp3"></audio>
         </div>
 
         <div class="grid grid-cols-2 gap-4">
-            <a href="mosques.html" class="royal-card p-6 text-center border-b-4 border-blue-600">
-                <div class="w-14 h-14 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-3 shadow-inner"><i class="fas fa-map-marked-alt text-xl"></i></div>
-                <h4 class="font-black text-slate-700 text-sm">خريطة الحلقات</h4>
+            <a href="student.html" class="glass p-6 rounded-[30px] text-center hover:scale-[1.02] transition-transform border-b-4 border-blue-600">
+                <div class="w-14 h-14 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-3 text-2xl floating">🎓</div>
+                <h3 class="font-black text-sm">بوابة الطالب</h3>
             </a>
-            <a href="student.html" class="royal-card p-6 text-center border-b-4 border-amber-500">
-                <div class="w-14 h-14 bg-amber-50 text-amber-600 rounded-2xl flex items-center justify-center mx-auto mb-3 shadow-inner"><i class="fas fa-trophy text-xl"></i></div>
-                <h4 class="font-black text-slate-700 text-sm">لوحة الشرف</h4>
+            <a href="mosques.html" class="glass p-6 rounded-[30px] text-center hover:scale-[1.02] transition-transform border-b-4 border-amber-500">
+                <div class="w-14 h-14 bg-amber-50 text-amber-600 rounded-2xl flex items-center justify-center mx-auto mb-3 text-2xl floating" style="animation-delay: 1s">🕌</div>
+                <h3 class="font-black text-sm">الحلقات</h3>
             </a>
         </div>
 
-        <div class="royal-card p-6 bg-blue-900 text-white border-none relative overflow-hidden">
-            <div class="relative z-10">
-                <span class="text-[9px] font-black text-amber-400 uppercase tracking-widest"><i class="fas fa-lightbulb ml-1"></i> إلهام اليوم</span>
-                <p class="text-sm font-bold mt-2 leading-relaxed">"خَيْرُكُمْ مَنْ تَعَلَّمَ الْقُرْآنَ وَعَلَّمَهُ" - بادر اليوم بحفظ آية، لترتقي بها غداً درجة.</p>
-            </div>
-            <i class="fas fa-quote-left absolute -top-2 -right-2 text-white/5 text-6xl"></i>
+        <div class="bg-gradient-to-br from-amber-500 to-orange-600 rounded-[30px] p-6 text-white shadow-lg relative overflow-hidden">
+            <h4 class="font-black text-sm mb-2 opacity-90"><i class="fas fa-star text-yellow-300"></i> آية اليوم</h4>
+            <p class="font-bold text-sm leading-7">"وَفِي ذَٰلِكَ فَلْيَتَنَافَسِ الْمُتَنَافِسُونَ"</p>
+            <i class="fas fa-shapes absolute bottom-0 right-0 text-white/10 text-6xl"></i>
         </div>
+
     </main>
 
-    <nav class="bottom-nav">
-        <a href="index.html" class="nav-link active"><i class="fas fa-house"></i><span>الرئيسية</span></a>
-        <a href="mosques.html" class="nav-link"><i class="fas fa-mosque"></i><span>الحلقات</span></a>
-        <a href="student.html" class="nav-link"><i class="fas fa-user-graduate"></i><span>ملفي</span></a>
-        <a href="admin.html" class="nav-link"><i class="fas fa-gear"></i><span>الإدارة</span></a>
+    <nav class="nav-floating">
+        <a href="index.html" class="nav-item active"><i class="fas fa-home"></i></a>
+        <a href="mosques.html" class="nav-item"><i class="fas fa-mosque"></i></a>
+        <a href="student.html" class="nav-item"><i class="fas fa-user-graduate"></i></a>
+        <a href="admin.html" class="nav-item"><i class="fas fa-cog"></i></a>
     </nav>
 
+    <script>
+        // Prayer Times Logic (Approximate for Gaza)
+        const prayers = { 'الفجر': '05:20', 'الظهر': '11:50', 'العصر': '14:45', 'المغرب': '17:10', 'العشاء': '18:30' };
+        const now = new Date();
+        const current = now.getHours() + ':' + now.getMinutes();
+        document.getElementById('nextPrayer').innerText = "المغرب 17:10"; // Placeholder, can be dynamic
+
+        // Dark Mode
+        function toggleTheme() {
+            document.body.classList.toggle('dark');
+            localStorage.setItem('theme', document.body.classList.contains('dark') ? 'dark' : 'light');
+        }
+        if(localStorage.getItem('theme') === 'dark') document.body.classList.add('dark');
+
+        // Audio Player
+        const audio = document.getElementById('quranAudio');
+        const btn = document.getElementById('playIcon');
+        function toggleAudio() {
+            if(audio.paused) { audio.play(); btn.className = "fas fa-pause"; }
+            else { audio.pause(); btn.className = "fas fa-play"; }
+        }
+    </script>
 </body>
 </html>
