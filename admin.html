@@ -1,80 +1,71 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>لوحة التحكم | مركز التابعين</title>
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teacher Admin</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap');
-        body { font-family: 'Tajawal', sans-serif; background: #f1f5f9; padding-bottom: 90px; }
-        .admin-card { background: white; border-radius: 25px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); }
-        .bottom-nav { position: fixed; bottom: 20px; left: 20px; right: 20px; background: #1e3a8a; height: 75px; display: flex; justify-content: space-around; align-items: center; border-radius: 25px; z-index: 1000; }
-        .nav-link { color: white; opacity: 0.6; text-decoration: none; display: flex; flex-direction: column; align-items: center; font-size: 11px; font-weight: bold; }
-        .nav-link.active { opacity: 1; color: #d4af37; }
-        input, select, textarea { width: 100%; padding: 15px; margin-top: 10px; border-radius: 15px; border: 1px solid #e2e8f0; outline: none; font-weight: bold; }
-        input:focus { border-color: #1e3a8a; }
-    </style>
+    <style>@import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@700;900&display=swap'); body{font-family:'Tajawal';background:#f8fafc;}</style>
 </head>
-<body>
+<body class="max-w-md mx-auto p-6 min-h-screen flex flex-col justify-center">
 
-    <div id="login" class="max-w-xs mx-auto mt-20 admin-card p-10 text-center">
-        <i class="fas fa-user-shield text-4xl text-blue-900 mb-4"></i>
-        <h2 class="font-black mb-6">دخول الإدارة</h2>
-        <input type="password" id="pass" class="text-center text-2xl tracking-widest" placeholder="****">
-        <button onclick="auth()" class="w-full bg-blue-900 text-white py-4 rounded-xl mt-6 font-black">دخول آمن</button>
+    <div id="login" class="bg-white p-8 rounded-3xl shadow-xl text-center">
+        <h2 class="font-black text-2xl text-slate-800 mb-6">منطقة المحفظين</h2>
+        <input type="number" id="pin" class="w-full bg-slate-100 p-4 rounded-xl text-center text-2xl tracking-[10px] font-black outline-none mb-4" placeholder="••••">
+        <button onclick="auth()" class="w-full bg-slate-900 text-white p-4 rounded-xl font-bold">دخول</button>
     </div>
 
-    <main id="main" class="hidden max-w-md mx-auto p-4 space-y-6">
-        <h2 class="text-xl font-black text-blue-900 flex items-center gap-2"><i class="fas fa-edit"></i> رصد إنجازات الطلاب</h2>
-        
-        <div class="admin-card p-6 space-y-4">
-            <div><label class="text-[10px] font-black text-slate-400 mr-2 uppercase">رقم هوية الطالب (ID)</label><input type="text" id="id" placeholder="ID"></div>
-            <div><label class="text-[10px] font-black text-slate-400 mr-2 uppercase">عدد الأجزاء الحالية</label><input type="number" id="pts" placeholder="0 - 30"></div>
-            <div><label class="text-[10px] font-black text-slate-400 mr-2 uppercase">ماذا سمع اليوم؟</label><input type="text" id="tdy" placeholder="مثال: من النبأ إلى العلق"></div>
-            <div><label class="text-[10px] font-black text-slate-400 mr-2 uppercase">التقييم</label>
-                <select id="grd">
-                    <option>ممتاز مرتفع 🌟</option>
-                    <option>ممتاز ✅</option>
-                    <option>جيد جداً 👍</option>
-                    <option>جيد 🆗</option>
-                </select>
+    <div id="panel" class="hidden space-y-4">
+        <h2 class="font-black text-xl text-blue-900">رصد جديد</h2>
+        <form onsubmit="event.preventDefault(); save();" class="bg-white p-6 rounded-3xl shadow-lg space-y-3">
+            <input id="id" type="text" placeholder="ID الطالب" class="w-full border p-3 rounded-xl font-bold">
+            <div class="flex gap-2">
+                <input id="parts" type="number" placeholder="الأجزاء" class="w-1/3 border p-3 rounded-xl font-bold">
+                <input id="today" type="text" placeholder="تسميع اليوم" class="w-2/3 border p-3 rounded-xl font-bold">
             </div>
-            <div><label class="text-[10px] font-black text-slate-400 mr-2 uppercase">رسالة للطالب</label><textarea id="sm" placeholder="كلمات تشجيعية..."></textarea></div>
-            <div><label class="text-[10px] font-black text-slate-400 mr-2 uppercase">رسالة للأهل</label><textarea id="pm" placeholder="ملاحظات المتابعة..."></textarea></div>
-            
-            <button onclick="save()" id="sBtn" class="w-full bg-blue-600 text-white py-5 rounded-2xl font-black shadow-lg">حفظ وتحديث السجل</button>
-        </div>
-    </main>
+            <select id="grade" class="w-full border p-3 rounded-xl font-bold bg-white">
+                <option>ممتاز مرتفع 🌟</option>
+                <option>ممتاز ✅</option>
+                <option>جيد جداً 👍</option>
+            </select>
+            <textarea id="msg" placeholder="ملاحظة..." class="w-full border p-3 rounded-xl font-bold h-20"></textarea>
+            <button type="submit" id="sBtn" class="w-full bg-blue-600 text-white py-4 rounded-xl font-black text-lg shadow-lg">حفظ البيانات</button>
+        </form>
+        <button onclick="location.reload()" class="w-full text-slate-400 text-sm font-bold mt-4">تسجيل خروج</button>
+    </div>
 
-    <nav class="bottom-nav">
-        <a href="index.html" class="nav-link"><i class="fas fa-house"></i><span>الرئيسية</span></a>
-        <a href="mosques.html" class="nav-link"><i class="fas fa-mosque"></i><span>الحلقات</span></a>
-        <a href="student.html" class="nav-link"><i class="fas fa-user-graduate"></i><span>ملفي</span></a>
-        <a href="admin.html" class="nav-link active"><i class="fas fa-gear"></i><span>الإدارة</span></a>
-    </nav>
+    <div id="toast" class="fixed top-5 left-1/2 -translate-x-1/2 bg-green-600 text-white px-6 py-3 rounded-full shadow-xl text-sm font-bold opacity-0 transition-opacity pointer-events-none">تم الحفظ بنجاح ✅</div>
 
     <script>
-        function auth() { if(document.getElementById('pass').value === "2026") { document.getElementById('login').classList.add('hidden'); document.getElementById('main').classList.remove('hidden'); } else { alert("كلمة المرور خطأ"); } }
+        const api = 'https://script.google.com/macros/s/AKfycbwf899QWPzdMXOHja6NtYVcptvq-FX27a1TnirQVE6x7zXULYJxQGsH07x7oAYI5L_kTg/exec';
+        function auth() { if(document.getElementById('pin').value === '2026') { document.getElementById('login').style.display='none'; document.getElementById('panel').classList.remove('hidden'); } }
         
         async function save() {
             const btn = document.getElementById('sBtn');
-            btn.innerText = "جاري الحفظ..."; btn.disabled = true;
-            const payload = { 
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>'; btn.disabled = true;
+            
+            const data = {
                 action: 'updateScore',
                 id: document.getElementById('id').value,
-                parts: document.getElementById('pts').value,
-                today: document.getElementById('tdy').value,
-                grade: document.getElementById('grd').value,
-                studentMsg: document.getElementById('sm').value,
-                parentMsg: document.getElementById('pm').value
+                parts: document.getElementById('parts').value,
+                today: document.getElementById('today').value,
+                grade: document.getElementById('grade').value,
+                studentMsg: document.getElementById('msg').value
             };
+
             try {
-                await fetch('https://script.google.com/macros/s/AKfycbxf1_9IvOs2qYR9XabunfNbMiSzQq7JSPTg_gd1f6jQhJPebJc139zFUVWzs9ApSyrOlg/exec', { method: 'POST', mode: 'no-cors', body: JSON.stringify(payload) });
-                alert("تم التحديث بنجاح! سيتمكن الطالب من رؤية النتائج فوراً.");
-            } catch(e) { alert("حدث خطأ في الإرسال"); }
-            btn.innerText = "حفظ وتحديث السجل"; btn.disabled = false;
+                await fetch(api, { method: 'POST', mode: 'no-cors', body: JSON.stringify(data) });
+                showToast();
+                document.getElementById('id').value = ''; 
+                document.getElementById('today').value = '';
+            } catch(e) { alert('خطأ'); }
+            btn.innerText = 'حفظ البيانات'; btn.disabled = false;
+        }
+
+        function showToast() {
+            const t = document.getElementById('toast');
+            t.style.opacity = '1';
+            setTimeout(() => t.style.opacity = '0', 3000);
         }
     </script>
 </body>
