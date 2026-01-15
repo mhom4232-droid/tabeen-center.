@@ -3,107 +3,235 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>إدارة التابعين | غرفة العمليات</title>
+    <title>مركز التابعين | غرفة التحكم الإداري</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap');
-        body { font-family: 'Tajawal', sans-serif; background: #f1f5f9; color: #0f172a; }
-        .admin-sidebar { background: #0f172a; height: 100vh; position: sticky; top: 0; }
-        .glass-input { background: #fff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 1rem; width: 100%; transition: 0.3s; }
-        .glass-input:focus { border-color: #c5a059; outline: none; box-shadow: 0 0 0 4px rgba(197, 160, 89, 0.1); }
-        @media (max-width: 768px) { .admin-sidebar { display: none; } }
+        @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&display=swap');
+        
+        :root {
+            --navy-deep: #0a0f1d;
+            --gold-matte: #af945d;
+            --sidebar-width: 280px;
+        }
+
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background: #f4f7f9;
+            color: var(--navy-deep);
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Side Navigation - هيبة رسمية */
+        .sidebar {
+            width: var(--sidebar-width);
+            background: var(--navy-deep);
+            color: white;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            position: fixed;
+            height: 100vh;
+            right: 0;
+            z-index: 1000;
+        }
+
+        .main-content {
+            margin-right: var(--sidebar-width);
+            flex: 1;
+            padding: 2.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-card {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.03);
+            border: 1px solid rgba(0,0,0,0.05);
+            padding: 2.5rem;
+        }
+
+        .input-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 1rem 1.2rem;
+            border-radius: 12px;
+            border: 2px solid #edf2f7;
+            font-weight: 600;
+            transition: all 0.3s;
+            background: #f8fafc;
+        }
+
+        .input-field:focus {
+            border-color: var(--gold-matte);
+            background: white;
+            outline: none;
+            box-shadow: 0 0 0 4px rgba(175, 148, 93, 0.1);
+        }
+
+        .btn-submit {
+            background: var(--navy-deep);
+            color: white;
+            padding: 1.2rem;
+            border-radius: 12px;
+            font-weight: 700;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: all 0.3s;
+            border: 2px solid var(--navy-deep);
+        }
+
+        .btn-submit:hover {
+            background: var(--gold-matte);
+            border-color: var(--gold-matte);
+            transform: translateY(-2px);
+        }
+
+        .status-badge {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 900;
+            text-transform: uppercase;
+        }
+
+        @media (max-width: 1024px) {
+            .sidebar { display: none; }
+            .main-content { margin-right: 0; padding: 1.5rem; }
+        }
     </style>
 </head>
-<body class="flex flex-col md:flex-row">
+<body>
 
-    <aside class="admin-sidebar w-64 p-6 hidden md:block">
-        <h1 class="text-white font-black text-xl mb-10 tracking-tighter">التابعين <span class="text-gold-royal block text-[10px]">ADMIN PANEL</span></h1>
-        <nav class="space-y-4">
-            <a href="#" class="block text-white bg-white/10 p-4 rounded-xl font-bold"><i class="fas fa-users-gear ml-2"></i> إدارة الطلاب</a>
-            <a href="index.html" class="block text-white/50 p-4 rounded-xl font-bold hover:text-white transition-all"><i class="fas fa-home ml-2"></i> الموقع الرئيسي</a>
+    <aside class="sidebar">
+        <div class="mb-12">
+            <h1 class="text-2xl font-black tracking-tighter text-white flex items-center gap-2">
+                <i class="fas fa-shield-halved text-gold-matte"></i> الإدارة العليا
+            </h1>
+            <p class="text-[10px] text-slate-500 font-bold mt-1 uppercase tracking-widest">نظام التابعين المركزي</p>
+        </div>
+
+        <nav class="space-y-6">
+            <a href="#" class="flex items-center gap-4 text-gold-matte font-bold"><i class="fas fa-user-edit w-5"></i> تحديث الطلاب</a>
+            <a href="#" class="flex items-center gap-4 text-slate-400 hover:text-white transition-all"><i class="fas fa-chart-line w-5"></i> تقارير الحلقات</a>
+            <a href="#" class="flex items-center gap-4 text-slate-400 hover:text-white transition-all"><i class="fas fa-hand-holding-heart w-5"></i> السجل المالي</a>
+            <div class="pt-10">
+                <a href="index.html" class="flex items-center gap-4 text-slate-500 hover:text-red-400 text-sm"><i class="fas fa-arrow-right-from-bracket"></i> خروج للموقع</a>
+            </div>
         </nav>
     </aside>
 
-    <main class="flex-1 p-4 md:p-10">
-        <header class="flex justify-between items-center mb-10">
+    <main class="main-content">
+        <header class="flex justify-between items-end mb-10">
             <div>
-                <h2 class="text-2xl font-black">تحديث سجلات الحلقات</h2>
-                <p class="text-slate-500 text-sm font-medium">أهلاً بك، فضيلة المحفظ</p>
+                <h2 class="text-3xl font-black text-slate-900">سجل المتابعة اليومي</h2>
+                <p class="text-slate-500 font-medium">إدخال البيانات الرسمية لحلقات التحفيظ</p>
             </div>
-            <div class="w-12 h-12 bg-white rounded-xl shadow-sm border flex items-center justify-center"><i class="fas fa-user-tie"></i></div>
+            <div class="text-left">
+                <span class="status-badge bg-green-100 text-green-600">النظام متصل <i class="fas fa-circle ml-1"></i></span>
+                <p class="text-[10px] font-bold text-slate-400 mt-2">2026-01-13 | مركز التابعين</p>
+            </div>
         </header>
 
-        <section class="max-w-4xl bg-white p-8 md:p-12 rounded-[30px] shadow-xl border border-slate-100">
-            <form id="updateForm" class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                
-                <div class="col-span-1 md:col-span-2 space-y-2">
-                    <label class="font-black text-xs text-slate-400 uppercase tracking-widest mr-2">كود الطالب المستهدف</label>
-                    <input type="number" id="stdID" placeholder="000000" required class="glass-input text-center text-2xl font-black tracking-widest">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <div class="lg:col-span-2">
+                <div class="form-card">
+                    <form id="adminUpdateForm" class="space-y-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div class="input-group">
+                                <label class="block text-xs font-black text-slate-400 mb-2 uppercase">كود الطالب الرسمي</label>
+                                <input type="number" id="stdID" required placeholder="مثلاً: 1002" class="input-field">
+                            </div>
+                            <div class="input-group">
+                                <label class="block text-xs font-black text-slate-400 mb-2 uppercase">المحفظ المسؤول</label>
+                                <select id="mentor" class="input-field appearance-none">
+                                    <option>ناهض العصار</option>
+                                    <option>محمد العصار</option>
+                                    <option>أحمد يونس</option>
+                                    <option>محمود العمصي</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                            <div class="input-group">
+                                <label class="block text-xs font-black text-slate-400 mb-2 uppercase">المسجد</label>
+                                <select id="mosque" class="input-field">
+                                    <option>مسجد التابعين الرئيسي</option>
+                                    <option>مسجد معاذ بن جبل</option>
+                                    <option>مسجد ذو النورين</option>
+                                </select>
+                            </div>
+                            <div class="input-group">
+                                <label class="block text-xs font-black text-slate-400 mb-2 uppercase">الأجزاء المنجزة</label>
+                                <input type="number" id="parts" placeholder="0" class="input-field">
+                            </div>
+                            <div class="input-group">
+                                <label class="block text-xs font-black text-slate-400 mb-2 uppercase">التقييم</label>
+                                <select id="grade" class="input-field">
+                                    <option>ممتاز ✨</option>
+                                    <option>جيد جداً 👍</option>
+                                    <option>جيد 🆗</option>
+                                    <option>يحتاج مراجعة ⚠️</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="input-group">
+                            <label class="block text-xs font-black text-slate-400 mb-2 uppercase">مقرر اليوم (تسميع/مراجعة)</label>
+                            <input type="text" id="today" placeholder="سورة مريم من آية 10 إلى 40" class="input-field">
+                        </div>
+
+                        <div class="input-group">
+                            <label class="block text-xs font-black text-slate-400 mb-2 uppercase">الرسالة التوجيهية (تظهر للطالب)</label>
+                            <textarea id="msg" rows="4" placeholder="اكتب ملاحظاتك التربوية هنا..." class="input-field resize-none"></textarea>
+                        </div>
+
+                        <button type="submit" id="submitBtn" class="btn-submit">
+                            تحديث سجل الطالب ومزامنته <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="space-y-6">
+                <div class="form-card bg-navy-deep text-white shadow-2xl" style="background: #0a1f3d;">
+                    <h3 class="font-black text-lg mb-4 text-gold-matte">تعليمات إدارية</h3>
+                    <ul class="text-sm space-y-4 text-slate-300 font-medium">
+                        <li class="flex gap-3"><i class="fas fa-circle-check text-gold-matte mt-1"></i> تأكد من كود الطالب قبل الإرسال لضمان الدقة.</li>
+                        <li class="flex gap-3"><i class="fas fa-circle-check text-gold-matte mt-1"></i> الرسائل التوجيهية ترفع من معنويات الطالب.</li>
+                        <li class="flex gap-3"><i class="fas fa-circle-check text-gold-matte mt-1"></i> يتم التحديث فورياً في لوحة الطالب.</li>
+                    </ul>
                 </div>
 
-                <div class="space-y-2">
-                    <label class="font-black text-xs text-slate-400 mr-2">المسجد / الحلقة</label>
-                    <select id="mosque" class="glass-input font-bold appearance-none">
-                        <option>المقر الرئيسي - مسجد التابعين</option>
-                        <option>مسجد معاذ بن جبل</option>
-                        <option>مسجد ذو النورين</option>
-                    </select>
+                <div class="form-card p-6 border-l-4 border-gold-matte">
+                    <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">إحصائية سريعة</p>
+                    <div class="flex items-center justify-between">
+                        <span class="text-3xl font-black">42</span>
+                        <span class="text-xs font-bold text-slate-500 italic">طالباً تم تحديثهم اليوم</span>
+                    </div>
                 </div>
-
-                <div class="space-y-2">
-                    <label class="font-black text-xs text-slate-400 mr-2">المحفظ المسؤول</label>
-                    <select id="mentor" class="glass-input font-bold">
-                        <option>ناهض العصار</option>
-                        <option>أحمد يونس</option>
-                        <option>محمد العصار</option>
-                        <option>محمود العمصي</option>
-                    </select>
-                </div>
-
-                <div class="space-y-2">
-                    <label class="font-black text-xs text-slate-400 mr-2">عدد الأجزاء المنجزة</label>
-                    <input type="number" id="parts" placeholder="مثال: 12" class="glass-input font-bold">
-                </div>
-
-                <div class="space-y-2">
-                    <label class="font-black text-xs text-slate-400 mr-2">التقييم اليومي</label>
-                    <select id="grade" class="glass-input font-bold">
-                        <option>ممتاز (A+)</option>
-                        <option>جيد جداً (B+)</option>
-                        <option>جيد (C)</option>
-                        <option>ضعيف (D)</option>
-                    </select>
-                </div>
-
-                <div class="col-span-1 md:col-span-2 space-y-2">
-                    <label class="font-black text-xs text-slate-400 mr-2">مقرر اليوم (تسميع/مراجعة)</label>
-                    <input type="text" id="today" placeholder="سورة البقرة من 1 إلى 50" class="glass-input font-bold">
-                </div>
-
-                <div class="col-span-1 md:col-span-2 space-y-2">
-                    <label class="font-black text-xs text-slate-400 mr-2">رسالة توجيهية للطالب</label>
-                    <textarea id="msg" class="glass-input h-32 resize-none" placeholder="اكتب تشجيعك أو ملاحظاتك هنا..."></textarea>
-                </div>
-
-                <button type="submit" id="subBtn" class="col-span-1 md:col-span-2 py-5 bg-slate-900 text-white rounded-2xl font-black text-lg hover:bg-black transition-all shadow-xl active:scale-95">
-                    مزامنة وتحديث البيانات <i class="fas fa-sync-alt mr-2"></i>
-                </button>
-
-            </form>
-        </section>
+            </div>
+        </div>
     </main>
 
     <script>
-        const API = "https://script.google.com/macros/s/AKfycbwZ7HP6Y9z_zlxccx5wn-mcn6xIy3ytUAs2oQH9ft70ImIcENSzXSYZUdv1PaG3YLH2KA/exec";
+        const API_URL = "https://script.google.com/macros/s/AKfycbwZ7HP6Y9z_zlxccx5wn-mcn6xIy3ytUAs2oQH9ft70ImIcENSzXSYZUdv1PaG3YLH2KA/exec";
 
-        document.getElementById('updateForm').onsubmit = async (e) => {
+        document.getElementById('adminUpdateForm').onsubmit = async (e) => {
             e.preventDefault();
-            const btn = document.getElementById('subBtn');
-            btn.innerHTML = '<i class="fas fa-circle-notch fa-spin"></i> جاري المزامنة...';
+            const btn = document.getElementById('submitBtn');
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري المزامنة مع السجل المركزي...';
             btn.disabled = true;
 
-            const payload = {
+            const data = {
                 action: "updateStudent",
                 id: document.getElementById('stdID').value,
                 mosque: document.getElementById('mosque').value,
@@ -115,13 +243,19 @@
             };
 
             try {
-                await fetch(API, { method: 'POST', mode: 'no-cors', body: JSON.stringify(payload) });
-                alert("تم تحديث السجل الرسمي للطالب بنجاح!");
-                document.getElementById('updateForm').reset();
+                // نستخدم mode: 'no-cors' للتعامل مع قيود Google Apps Script
+                await fetch(API_URL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    body: JSON.stringify(data)
+                });
+
+                alert("تم التحديث بنجاح! السجل الآن متاح للطالب.");
+                document.getElementById('adminUpdateForm').reset();
             } catch (err) {
-                alert("حدث خطأ في الاتصال بالسيرفر.");
+                alert("خطأ في الاتصال بالسيرفر، يرجى التحقق من الإنترنت.");
             } finally {
-                btn.innerHTML = 'مزامنة وتحديث البيانات <i class="fas fa-sync-alt mr-2"></i>';
+                btn.innerHTML = 'تحديث سجل الطالب ومزامنته <i class="fas fa-paper-plane"></i>';
                 btn.disabled = false;
             }
         };
