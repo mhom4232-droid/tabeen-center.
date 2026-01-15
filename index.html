@@ -3,97 +3,71 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>مركز التابعين القرآني</title>
+    <title>مركز التابعين القرآني | غزة</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap');
-        body { font-family: 'Tajawal', sans-serif; background-color: #f8fafc; padding-bottom: 90px; }
-        
-        /* تصميم الكروت الفخم */
-        .card-shadow { box-shadow: 0 10px 25px -5px rgba(30, 58, 138, 0.1); border-radius: 24px; }
-        
-        /* حل مشكلة القائمة السفلية */
-        .bottom-nav {
-            position: fixed; bottom: 0; left: 0; right: 0;
-            background: white; height: 75px; display: flex;
-            justify-content: space-around; align-items: center;
-            box-shadow: 0 -5px 20px rgba(0,0,0,0.05); border-top: 1px solid #f1f5f9; z-index: 1000;
-        }
-        .nav-link { text-decoration: none; color: #64748b; display: flex; flex-direction: column; align-items: center; font-size: 11px; font-weight: bold; gap: 4px; }
-        .nav-link.active { color: #1e3a8a; }
-        .nav-link i { font-size: 22px; }
-
-        /* تدرج أزرق ملكي */
-        .hero-gradient { background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%); }
+        body { font-family: 'Tajawal', sans-serif; background: #f8fafc; padding-bottom: 90px; overflow-x: hidden; }
+        .hero-bg { background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%); position: relative; overflow: hidden; }
+        .royal-card { background: white; border-radius: 30px; box-shadow: 0 15px 35px -5px rgba(30, 58, 138, 0.1); border: 1px solid #eef2f6; transition: 0.3s; }
+        .royal-card:active { transform: scale(0.98); }
+        .bottom-nav { position: fixed; bottom: 20px; left: 20px; right: 20px; background: #1e3a8a; height: 75px; display: flex; justify-content: space-around; align-items: center; border-radius: 25px; box-shadow: 0 10px 30px rgba(30, 58, 138, 0.3); z-index: 1000; }
+        .nav-link { text-decoration: none; color: rgba(255,255,255,0.6); display: flex; flex-direction: column; align-items: center; font-size: 11px; font-weight: bold; gap: 4px; }
+        .nav-link.active { color: #d4af37; }
+        .nav-link i { font-size: 24px; }
+        .gold-glow { box-shadow: 0 0 20px rgba(212, 175, 55, 0.3); }
     </style>
 </head>
 <body>
 
-    <header class="bg-white p-4 flex justify-between items-center shadow-sm border-b">
-        <div class="flex items-center gap-2">
-            <div class="w-10 h-10 bg-blue-900 text-white rounded-xl flex items-center justify-center shadow-lg">
-                <i class="fas fa-quran"></i>
+    <header class="p-5 bg-white flex justify-between items-center shadow-sm sticky top-0 z-50">
+        <div class="flex items-center gap-3">
+            <div class="w-12 h-12 bg-blue-900 text-white rounded-2xl flex items-center justify-center shadow-lg"><i class="fas fa-mosque text-2xl"></i></div>
+            <div>
+                <h1 class="font-black text-blue-900 text-lg">منصة التابعين</h1>
+                <p class="text-[9px] text-slate-400 font-bold uppercase tracking-widest">Al-Tabaeen Center</p>
             </div>
-            <h1 class="font-black text-blue-900 text-lg">مركز التابعين</h1>
         </div>
-        <div class="text-xs font-bold text-slate-400 italic">غزة - فلسطين</div>
+        <div class="bg-blue-50 px-3 py-1 rounded-full text-[10px] font-black text-blue-800 border border-blue-100">بإشراف أ. إسماعيل نوفل</div>
     </header>
 
     <main class="max-w-md mx-auto p-4 space-y-6">
-        
-        <div class="hero-gradient p-8 rounded-[40px] text-white text-center shadow-2xl relative overflow-hidden card-shadow">
-            <h2 class="text-2xl font-black mb-2">صرح القرآن في غزة</h2>
-            <p class="text-[11px] opacity-80 mb-6 leading-relaxed">بناء الجيل الصاعد على مائدة القرآن الكريم، بإشراف الأستاذ إسماعيل نوفل.</p>
-            <div class="flex gap-2">
-                <a href="student.html" class="flex-1 bg-white text-blue-900 py-3 rounded-2xl font-black text-xs shadow-lg transition-transform active:scale-95">ملفي القرآني</a>
-                <a href="mosques.html" class="flex-1 bg-blue-500/30 backdrop-blur-md border border-white/20 py-3 rounded-2xl font-black text-xs transition-transform active:scale-95">تسجيل جديد</a>
+        <div class="hero-bg p-10 rounded-[45px] text-white text-center shadow-2xl card-fakhama">
+            <h2 class="text-3xl font-black mb-3">صرح القرآن الكريم</h2>
+            <p class="text-xs opacity-80 mb-8 leading-relaxed">بناء الجيل الصاعد على مائدة الوحي العظيم، جودة في التحفيظ وتميز في التربية.</p>
+            <div class="flex gap-3">
+                <a href="student.html" class="flex-1 bg-white text-blue-900 py-4 rounded-2xl font-black text-sm shadow-xl hover:bg-slate-50 transition-all">بوابة الطالب</a>
+                <a href="mosques.html" class="flex-1 bg-blue-500/30 backdrop-blur-md border border-white/20 py-4 rounded-2xl font-black text-sm">التسجيل</a>
             </div>
-            <i class="fas fa-star absolute -bottom-4 -left-4 text-white/5 text-[100px]"></i>
+            <i class="fas fa-star absolute -bottom-4 -left-4 text-white/5 text-[150px]"></i>
         </div>
 
         <div class="grid grid-cols-2 gap-4">
-            <a href="mosques.html" class="bg-white p-6 rounded-[30px] text-center card-shadow border border-slate-50 transition-all active:bg-blue-50">
-                <div class="w-12 h-12 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-3">
-                    <i class="fas fa-mosque text-xl"></i>
-                </div>
-                <h4 class="font-black text-slate-700 text-sm">المساجد</h4>
+            <a href="mosques.html" class="royal-card p-6 text-center border-b-4 border-blue-600">
+                <div class="w-14 h-14 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-3 shadow-inner"><i class="fas fa-map-marked-alt text-xl"></i></div>
+                <h4 class="font-black text-slate-700 text-sm">خريطة الحلقات</h4>
             </a>
-            <a href="competitions.html" class="bg-white p-6 rounded-[30px] text-center card-shadow border border-slate-50 transition-all active:bg-amber-50">
-                <div class="w-12 h-12 bg-amber-50 text-amber-600 rounded-2xl flex items-center justify-center mx-auto mb-3">
-                    <i class="fas fa-trophy text-xl"></i>
-                </div>
-                <h4 class="font-black text-slate-700 text-sm">المسابقات</h4>
+            <a href="student.html" class="royal-card p-6 text-center border-b-4 border-amber-500">
+                <div class="w-14 h-14 bg-amber-50 text-amber-600 rounded-2xl flex items-center justify-center mx-auto mb-3 shadow-inner"><i class="fas fa-trophy text-xl"></i></div>
+                <h4 class="font-black text-slate-700 text-sm">لوحة الشرف</h4>
             </a>
         </div>
 
-        <div class="bg-blue-900/5 p-5 rounded-[30px] border border-blue-100 flex items-center justify-around text-center">
-            <div><span class="block font-black text-blue-900 text-lg">10+</span><span class="text-[9px] text-slate-400 font-bold uppercase">محفظين</span></div>
-            <div class="w-px h-8 bg-blue-100"></div>
-            <div><span class="block font-black text-blue-900 text-lg">4</span><span class="text-[9px] text-slate-400 font-bold uppercase">مساجد</span></div>
-            <div class="w-px h-8 bg-blue-100"></div>
-            <div><span class="block font-black text-blue-900 text-lg">2026</span><span class="text-[9px] text-slate-400 font-bold uppercase">عام التأسيس</span></div>
+        <div class="royal-card p-6 bg-blue-900 text-white border-none relative overflow-hidden">
+            <div class="relative z-10">
+                <span class="text-[9px] font-black text-amber-400 uppercase tracking-widest"><i class="fas fa-lightbulb ml-1"></i> إلهام اليوم</span>
+                <p class="text-sm font-bold mt-2 leading-relaxed">"خَيْرُكُمْ مَنْ تَعَلَّمَ الْقُرْآنَ وَعَلَّمَهُ" - بادر اليوم بحفظ آية، لترتقي بها غداً درجة.</p>
+            </div>
+            <i class="fas fa-quote-left absolute -top-2 -right-2 text-white/5 text-6xl"></i>
         </div>
-
     </main>
 
     <nav class="bottom-nav">
-        <a href="index.html" class="nav-link active">
-            <i class="fas fa-house"></i>
-            <span>الرئيسية</span>
-        </a>
-        <a href="mosques.html" class="nav-link">
-            <i class="fas fa-mosque"></i>
-            <span>الحلقات</span>
-        </a>
-        <a href="student.html" class="nav-link">
-            <i class="fas fa-user-graduate"></i>
-            <span>ملفي</span>
-        </a>
-        <a href="admin.html" class="nav-link">
-            <i class="fas fa-gear"></i>
-            <span>الإدارة</span>
-        </a>
+        <a href="index.html" class="nav-link active"><i class="fas fa-house"></i><span>الرئيسية</span></a>
+        <a href="mosques.html" class="nav-link"><i class="fas fa-mosque"></i><span>الحلقات</span></a>
+        <a href="student.html" class="nav-link"><i class="fas fa-user-graduate"></i><span>ملفي</span></a>
+        <a href="admin.html" class="nav-link"><i class="fas fa-gear"></i><span>الإدارة</span></a>
     </nav>
 
 </body>
