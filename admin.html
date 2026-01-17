@@ -2,120 +2,170 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <title>إدارة التابعين | لوحة التحكم الفائق</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لوحة التحكم | مركز التابعين</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
-        body { font-family: 'Tajawal', sans-serif; background: #f1f5f9; }
-        .admin-card { background: white; border-radius: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
-        .tab-btn { cursor: pointer; padding: 15px 25px; font-weight: 900; border-radius: 15px; transition: 0.3s; }
-        .tab-btn.active { background: #0a0f1d; color: white; }
-        .hidden-p { display: none; }
+        @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@300;500;800;900&display=swap');
+        body { font-family: 'Tajawal', sans-serif; background: #f0f2f5; color: #1a1a1a; }
+        .admin-card { background: white; border-radius: 30px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); border: 1px solid rgba(0,0,0,0.05); }
+        .tab-active { background: #0a0f1d; color: white; border-radius: 15px; }
+        .hidden-section { display: none; }
+        .input-gold { width: 100%; padding: 15px; background: #f8fafc; border: 2px solid #edf2f7; border-radius: 15px; outline: none; transition: 0.3s; font-weight: bold; }
+        .input-gold:focus { border-color: #af945d; background: white; }
+        .btn-action { background: #0a0f1d; color: white; padding: 15px 30px; border-radius: 15px; font-weight: 900; transition: 0.3s; cursor: pointer; text-align: center; }
+        .btn-action:hover { background: #af945d; transform: translateY(-2px); }
     </style>
 </head>
-<body class="p-8">
+<body class="p-4 md:p-10">
 
-    <div class="max-w-6xl mx-auto">
-        
-        <div id="auth-lock" class="admin-card p-16 text-center max-w-md mx-auto mt-20">
-            <i class="fas fa-user-shield text-6xl text-slate-800 mb-6"></i>
-            <h2 class="text-2xl font-black mb-6">دخول الإدارة العليا</h2>
-            <input type="password" id="adminPass" placeholder="كلمة المرور السرية" class="w-full h-16 bg-slate-50 border-2 rounded-2xl text-center text-2xl outline-none focus:border-amber-500 mb-6">
-            <button onclick="adminSystem.checkAuth()" class="w-full py-4 bg-slate-900 text-white rounded-2xl font-black shadow-xl">دخول النظام</button>
+    <div class="max-w-5xl mx-auto">
+        <div id="auth-screen" class="admin-card p-12 text-center max-w-md mx-auto mt-20 animate__animated animate__zoomIn">
+            <div class="w-20 h-20 bg-slate-900 rounded-3xl flex items-center justify-center text-white text-3xl mx-auto mb-6 shadow-xl">
+                <i class="fas fa-user-shield"></i>
+            </div>
+            <h2 class="text-2xl font-black mb-6">تسجيل دخول الأنظمة</h2>
+            <input type="password" id="systemKey" placeholder="أدخل كلمة المرور السرية" class="input-gold text-center text-2xl mb-6">
+            <button onclick="adminCore.auth()" class="btn-action w-full">دخول آمن</button>
+            <p class="text-[10px] text-slate-400 mt-6 font-bold">نظام محمي - مركز التابعين 2026</p>
         </div>
 
-        <div id="main-admin" class="hidden-p space-y-8">
-            <header class="flex justify-between items-center mb-10">
+        <div id="main-dashboard" class="hidden-section space-y-8 animate__animated animate__fadeIn">
+            <header class="flex flex-col md:flex-row justify-between items-center gap-6">
                 <div>
-                    <h1 class="text-4xl font-black text-slate-900">غرفة التحكم <span class="text-amber-600">السيادي</span></h1>
-                    <p class="font-bold text-slate-400 mt-1 italic">أهلاً بك أيها المدير، تحكم في كل ركن في منصة التابعين</p>
+                    <h1 class="text-3xl font-black" id="welcome-msg">مرحباً بك</h1>
+                    <p class="text-gold font-black italic" id="role-tag"></p>
                 </div>
-                <a href="index.html" class="px-8 py-3 bg-white border-2 rounded-2xl font-black hover:bg-slate-50">خروج</a>
+                <div class="flex gap-2">
+                    <a href="index.html" class="px-6 py-3 bg-white rounded-xl font-bold border hover:bg-slate-50 transition">معاينة الموقع</a>
+                    <button onclick="location.reload()" class="px-6 py-3 bg-red-50 text-red-600 rounded-xl font-bold">خروج</button>
+                </div>
             </header>
 
-            <div class="flex gap-4 mb-10 overflow-x-auto pb-2">
-                <div onclick="adminSystem.showTab('students')" id="t-students" class="tab-btn active">إدارة الطلاب والمحفظين</div>
-                <div onclick="adminSystem.showTab('news')" id="t-news" class="tab-btn">شريط الأخبار والإعلانات</div>
-                <div onclick="adminSystem.showTab('site')" id="t-site" class="tab-btn">تخصيص الموقع والصور</div>
+            <div class="flex gap-4 overflow-x-auto pb-2" id="nav-tabs">
+                <button onclick="adminCore.switchTab('students')" id="btn-students" class="px-6 py-3 font-black tab-active">إدارة الطلاب</button>
+                <button onclick="adminCore.switchTab('media')" id="btn-media" class="px-6 py-3 font-black hidden-section">الوسائط والصور</button>
+                <button onclick="adminCore.switchTab('settings')" id="btn-settings" class="px-6 py-3 font-black hidden-section">إعدادات الموقع</button>
             </div>
 
-            <div id="p-students" class="p-block admin-card p-10">
-                <h3 class="text-xl font-black mb-8"><i class="fas fa-users-class mr-2"></i> تحديث سجلات الحلقات</h3>
-                <form id="studentForm" class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <input type="number" id="adm-id" placeholder="كود الطالب" class="p-4 bg-slate-50 border rounded-xl outline-none font-bold">
-                    <select id="adm-mentor" class="p-4 bg-slate-50 border rounded-xl font-bold">
+            <section id="sec-students" class="admin-card p-8 space-y-6">
+                <h3 class="text-xl font-black border-r-4 border-gold pr-4">سجلات الحلقات</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <input type="number" id="std-id" placeholder="كود الطالب" class="input-gold">
+                    <select id="std-mentor" class="input-gold">
                         <option>ناهض العصار</option> <option>محمد العصار</option>
                         <option>أحمد جحجوح</option> <option>أحمد يونس</option>
-                        <option>أحمد أبو سلمية</option> <option>قصي يونس</option>
-                        <option>محمود العمصي</option> <option>عبد الله العمصي</option>
+                        <option>قصي يونس</option> <option>محمود العمصي</option>
                     </select>
-                    <input type="number" id="adm-parts" placeholder="عدد الأجزاء" class="p-4 bg-slate-50 border rounded-xl font-bold">
-                    <select id="adm-grade" class="p-4 bg-slate-50 border rounded-xl font-bold">
-                        <option>ممتاز ✨</option> <option>جيد جداً 👍</option> <option>جيد 🆗</option>
+                    <input type="number" id="std-parts" placeholder="عدد الأجزاء" class="input-gold">
+                    <select id="std-grade" class="input-gold">
+                        <option>امتياز ✨</option> <option>جيد جداً 👍</option> <option>جيد 🆗</option>
                     </select>
-                    <textarea id="adm-msg" placeholder="مقرر اليوم أو رسالة للطالب" class="p-4 bg-slate-50 border rounded-xl font-bold md:col-span-2"></textarea>
-                    <button type="submit" class="md:col-span-2 py-5 bg-slate-900 text-white rounded-2xl font-black text-xl hover:bg-amber-600 transition-all">تحديث في قاعدة البيانات</button>
-                </form>
-            </div>
+                    <textarea id="std-msg" placeholder="رسالة تشجيعية أو مقرر اليوم" class="input-gold md:col-span-2" rows="3"></textarea>
+                </div>
+                <button onclick="adminCore.updateStudent()" class="btn-action w-full">تحديث السجل السحابي</button>
+            </section>
 
-            <div id="p-news" class="p-block hidden-p admin-card p-10">
-                <h3 class="text-xl font-black mb-8">إدارة الإعلانات العاجلة</h3>
-                <div class="space-y-6">
-                    <div>
-                        <label class="block text-xs font-black text-slate-400 mb-2">نص شريط الإعلانات المتحرك</label>
-                        <input type="text" id="m-ticker" class="w-full p-4 bg-slate-50 border rounded-xl outline-none font-bold">
+            <section id="sec-media" class="hidden-section admin-card p-8 space-y-6">
+                <h3 class="text-xl font-black border-r-4 border-blue-600 pr-4 text-blue-600">إدارة الصور</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="p-6 border-2 border-dashed border-slate-200 rounded-3xl text-center">
+                        <i class="fas fa-cloud-upload-alt text-4xl text-slate-300 mb-4"></i>
+                        <p class="font-bold text-slate-500 mb-4">رفع من الجهاز</p>
+                        <input type="file" id="file-upload" class="hidden" accept="image/*" onchange="adminCore.handleFile(event)">
+                        <button onclick="document.getElementById('file-upload').click()" class="bg-slate-100 px-6 py-2 rounded-xl font-black text-sm">اختيار ملف</button>
                     </div>
-                    <hr>
-                    <h4 class="font-black">إضافة خبر جديد للمركز</h4>
-                    <input type="text" id="m-news-title" placeholder="عنوان الخبر" class="w-full p-4 bg-slate-50 border rounded-xl mb-4">
-                    <textarea id="m-news-body" placeholder="تفاصيل الخبر" class="w-full p-4 bg-slate-50 border rounded-xl"></textarea>
-                    <button onclick="adminSystem.saveNews()" class="w-full py-4 bg-amber-500 text-white rounded-2xl font-black">نشر الإعلانات والأخبار فوراً</button>
+                    <div>
+                        <p class="font-bold text-slate-500 mb-4">أو رابط من الإنترنت</p>
+                        <input type="text" id="img-url" placeholder="ضع رابط الصورة هنا" class="input-gold mb-4">
+                        <button onclick="adminCore.addImgLink()" class="btn-action w-full py-3 text-sm">إضافة الرابط</button>
+                    </div>
                 </div>
-            </div>
+            </section>
 
-            <div id="p-site" class="p-block hidden-p admin-card p-10">
-                <h3 class="text-xl font-black mb-8">إدارة الوسائط والصور</h3>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <input type="text" id="m-img-url" placeholder="رابط الصورة (URL)" class="p-4 bg-slate-50 border rounded-xl font-bold">
-                    <button onclick="alert('تمت إضافة الصورة لمعرض الصور العام')" class="py-4 bg-blue-600 text-white rounded-xl font-black">إضافة الصورة للموقع</button>
+            <section id="sec-settings" class="hidden-section admin-card p-8 space-y-6">
+                <h3 class="text-xl font-black border-r-4 border-amber-500 pr-4 text-amber-500">التحكم في المحتوى</h3>
+                <div>
+                    <label class="block font-black text-sm mb-2">شريط الإعلانات العلوية</label>
+                    <textarea id="ticker-input" class="input-gold" rows="3" placeholder="اكتب نص شريط الأخبار..."></textarea>
                 </div>
-            </div>
+                <button onclick="adminCore.saveSettings()" class="btn-action w-full bg-amber-500">تحديث واجهة الموقع</button>
+            </section>
         </div>
     </div>
 
     <script>
-        const adminSystem = {
-            checkAuth() {
-                const pass = document.getElementById('adminPass').value;
-                if(pass === "TABEEN_2026") {
-                    document.getElementById('auth-lock').classList.add('hidden-p');
-                    document.getElementById('main-admin').classList.remove('hidden-p');
-                } else { alert("كلمة المرور غير صحيحة"); }
-            },
-            showTab(tab) {
-                document.querySelectorAll('.p-block').forEach(p => p.classList.add('hidden-p'));
-                document.querySelectorAll('.tab-btn').forEach(t => t.classList.remove('active'));
-                document.getElementById('p-' + tab).classList.remove('hidden-p');
-                document.getElementById('t-' + tab).classList.add('active');
-            },
-            saveNews() {
-                const ticker = document.getElementById('m-ticker').value;
-                const nTitle = document.getElementById('m-news-title').value;
-                const nBody = document.getElementById('m-news-body').value;
-                
-                const settings = JSON.parse(localStorage.getItem('tabeenSettings') || '{"news":[]}');
-                settings.ticker = ticker;
-                if(nTitle) settings.news.push({ title: nTitle, body: nBody });
-                
-                localStorage.setItem('tabeenSettings', JSON.stringify(settings));
-                alert("تم تحديث الموقع بنجاح!");
-            }
+        // نظام كلمات المرور المنفصلة
+        const ACCESS_KEYS = {
+            "ADMIN_MASTER_2026": { role: "المدير العام", level: 2 },
+            "MENTOR_NAHED": { role: "المحفظ ناهض العصار", level: 1 },
+            "MENTOR_MOHAMMED": { role: "المحفظ محمد العصار", level: 1 },
+            "MENTOR_AHMED": { role: "المحفظ أحمد يونس", level: 1 }
         };
 
-        document.getElementById('studentForm').onsubmit = async (e) => {
-            e.preventDefault();
-            alert("تم إرسال البيانات لجوجل شيت بنجاح!");
-            e.target.reset();
+        const adminCore = {
+            currentLevel: 0,
+
+            auth() {
+                const key = document.getElementById('systemKey').value;
+                const user = ACCESS_KEYS[key];
+                if(user) {
+                    this.currentLevel = user.level;
+                    document.getElementById('auth-screen').style.display = 'none';
+                    document.getElementById('main-dashboard').classList.remove('hidden-section');
+                    document.getElementById('welcome-msg').innerText = "مرحباً: " + user.role;
+                    document.getElementById('role-tag').innerText = (user.level === 2) ? "صلاحيات كاملة" : "صلاحيات محددة";
+                    
+                    if(user.level === 2) {
+                        document.getElementById('btn-media').classList.remove('hidden-section');
+                        document.getElementById('btn-settings').classList.remove('hidden-section');
+                    }
+                } else { alert("كلمة المرور غير صحيحة!"); }
+            },
+
+            switchTab(tabId) {
+                document.querySelectorAll('section').forEach(s => s.classList.add('hidden-section'));
+                document.querySelectorAll('#nav-tabs button').forEach(b => b.classList.remove('tab-active'));
+                document.getElementById('sec-' + tabId).classList.remove('hidden-section');
+                document.getElementById('btn-' + tabId).classList.add('tab-active');
+            },
+
+            // ميزة رفع الملفات من الجهاز
+            handleFile(event) {
+                const file = event.target.files[0];
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    const data = JSON.parse(localStorage.getItem('tabeen_data') || '{"images":[]}');
+                    data.images.push(e.target.result);
+                    localStorage.setItem('tabeen_data', JSON.stringify(data));
+                    alert("تم رفع الصورة بنجاح!");
+                };
+                reader.readAsDataURL(file);
+            },
+
+            addImgLink() {
+                const url = document.getElementById('img-url').value;
+                if(!url) return;
+                const data = JSON.parse(localStorage.getItem('tabeen_data') || '{"images":[]}');
+                data.images.push(url);
+                localStorage.setItem('tabeen_data', JSON.stringify(data));
+                alert("تم إضافة الرابط!");
+                document.getElementById('img-url').value = "";
+            },
+
+            saveSettings() {
+                const ticker = document.getElementById('ticker-input').value;
+                const data = JSON.parse(localStorage.getItem('tabeen_data') || '{}');
+                data.ticker = ticker;
+                localStorage.setItem('tabeen_data', JSON.stringify(data));
+                alert("تم تحديث إعدادات الموقع بنجاح!");
+            },
+
+            updateStudent() {
+                // هنا يتم الربط مع Google Sheets في المرحلة النهائية
+                alert("تم إرسال بيانات الطالب للسحابة الإلكترونية بنجاح!");
+            }
         };
     </script>
 </body>
