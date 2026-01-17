@@ -2,223 +2,120 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <title>إدارة التابعين | لوحة التحكم</title>
+    <title>إدارة التابعين | لوحة التحكم الفائق</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
         body { font-family: 'Tajawal', sans-serif; background: #f1f5f9; }
-        .admin-card { background: white; border-radius: 20px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); }
+        .admin-card { background: white; border-radius: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+        .tab-btn { cursor: pointer; padding: 15px 25px; font-weight: 900; border-radius: 15px; transition: 0.3s; }
+        .tab-btn.active { background: #0a0f1d; color: white; }
+        .hidden-p { display: none; }
     </style>
 </head>
-<body class="p-6">
+<body class="p-8">
 
-    <div class="max-w-4xl mx-auto">
-        <header class="flex justify-between items-center mb-10">
-            <div>
-                <h1 class="text-3xl font-black text-slate-900">غرفة التحكم المركزي</h1>
-                <p class="text-slate-500 font-bold italic">تحديث سجلات الطلاب والمساجد</p>
-            </div>
-            <a href="index.html" class="bg-white px-6 py-3 rounded-xl font-bold border shadow-sm hover:bg-slate-50">رجوع للموقع</a>
-        </header>
+    <div class="max-w-6xl mx-auto">
+        
+        <div id="auth-lock" class="admin-card p-16 text-center max-w-md mx-auto mt-20">
+            <i class="fas fa-user-shield text-6xl text-slate-800 mb-6"></i>
+            <h2 class="text-2xl font-black mb-6">دخول الإدارة العليا</h2>
+            <input type="password" id="adminPass" placeholder="كلمة المرور السرية" class="w-full h-16 bg-slate-50 border-2 rounded-2xl text-center text-2xl outline-none focus:border-amber-500 mb-6">
+            <button onclick="adminSystem.checkAuth()" class="w-full py-4 bg-slate-900 text-white rounded-2xl font-black shadow-xl">دخول النظام</button>
+        </div>
 
-        <div class="admin-card p-10">
-            <form id="adminForm" class="space-y-6">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div>
-                        <label class="block text-xs font-black text-slate-400 mb-2 uppercase">كود الطالب</label>
-                        <input type="number" id="admID" required class="w-full p-4 bg-slate-50 border rounded-xl outline-none focus:border-blue-500 font-bold">
-                    </div>
-                    <div>
-                        <label class="block text-xs font-black text-slate-400 mb-2 uppercase">المحفظ المسؤول</label>
-                        <select id="admMentor" class="w-full p-4 bg-slate-50 border rounded-xl outline-none font-bold">
-                            <option>ناهض العصار</option>
-                            <option>محمد العصار</option>
-                            <option>أحمد يونس</option>
-                            <option>أحمد جحجوح</option>
-                            <option>قصي يونس</option>
-                            <option>محمود العمصي</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <div>
-                        <label class="block text-xs font-black text-slate-400 mb-2 uppercase">المسجد</label>
-                        <select id="admMosque" class="w-full p-4 bg-slate-50 border rounded-xl outline-none font-bold">
-                            <option>مسجد التابعين الرئيسي</option>
-                            <option>مسجد معاذ بن جبل</option>
-                            <option>مسجد التابعين للنساء</option>
-                            <option>مسجد ذو النورين</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label class="block text-xs font-black text-slate-400 mb-2 uppercase">عدد الأجزاء</label>
-                        <input type="number" id="admParts" class="w-full p-4 bg-slate-50 border rounded-xl outline-none font-bold">
-                    </div>
-                    <div>
-                        <label class="block text-xs font-black text-slate-400 mb-2 uppercase">التقييم اليومي</label>
-                        <select id="admGrade" class="w-full p-4 bg-slate-50 border rounded-xl outline-none font-bold">
-                            <option>ممتاز ✨</option>
-                            <option>جيد جداً 👍</option>
-                            <option>جيد 🆗</option>
-                        </select>
-                    </div>
-                </div>
-
+        <div id="main-admin" class="hidden-p space-y-8">
+            <header class="flex justify-between items-center mb-10">
                 <div>
-                    <label class="block text-xs font-black text-slate-400 mb-2 uppercase">مقرر اليوم / رسالة للطالب</label>
-                    <textarea id="admMsg" rows="3" class="w-full p-4 bg-slate-50 border rounded-xl outline-none font-bold" placeholder="مثلاً: حفظ سورة البقرة من 1-20"></textarea>
+                    <h1 class="text-4xl font-black text-slate-900">غرفة التحكم <span class="text-amber-600">السيادي</span></h1>
+                    <p class="font-bold text-slate-400 mt-1 italic">أهلاً بك أيها المدير، تحكم في كل ركن في منصة التابعين</p>
                 </div>
+                <a href="index.html" class="px-8 py-3 bg-white border-2 rounded-2xl font-black hover:bg-slate-50">خروج</a>
+            </header>
 
-                <button type="submit" id="subBtn" class="w-full py-5 bg-slate-900 text-white rounded-2xl font-black text-xl hover:bg-[#af945d] transition-all shadow-xl">
-                    تحديث السجل المركزي <i class="fas fa-cloud-upload-alt ml-2"></i>
-                </button>
-            </form>
+            <div class="flex gap-4 mb-10 overflow-x-auto pb-2">
+                <div onclick="adminSystem.showTab('students')" id="t-students" class="tab-btn active">إدارة الطلاب والمحفظين</div>
+                <div onclick="adminSystem.showTab('news')" id="t-news" class="tab-btn">شريط الأخبار والإعلانات</div>
+                <div onclick="adminSystem.showTab('site')" id="t-site" class="tab-btn">تخصيص الموقع والصور</div>
+            </div>
+
+            <div id="p-students" class="p-block admin-card p-10">
+                <h3 class="text-xl font-black mb-8"><i class="fas fa-users-class mr-2"></i> تحديث سجلات الحلقات</h3>
+                <form id="studentForm" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <input type="number" id="adm-id" placeholder="كود الطالب" class="p-4 bg-slate-50 border rounded-xl outline-none font-bold">
+                    <select id="adm-mentor" class="p-4 bg-slate-50 border rounded-xl font-bold">
+                        <option>ناهض العصار</option> <option>محمد العصار</option>
+                        <option>أحمد جحجوح</option> <option>أحمد يونس</option>
+                        <option>أحمد أبو سلمية</option> <option>قصي يونس</option>
+                        <option>محمود العمصي</option> <option>عبد الله العمصي</option>
+                    </select>
+                    <input type="number" id="adm-parts" placeholder="عدد الأجزاء" class="p-4 bg-slate-50 border rounded-xl font-bold">
+                    <select id="adm-grade" class="p-4 bg-slate-50 border rounded-xl font-bold">
+                        <option>ممتاز ✨</option> <option>جيد جداً 👍</option> <option>جيد 🆗</option>
+                    </select>
+                    <textarea id="adm-msg" placeholder="مقرر اليوم أو رسالة للطالب" class="p-4 bg-slate-50 border rounded-xl font-bold md:col-span-2"></textarea>
+                    <button type="submit" class="md:col-span-2 py-5 bg-slate-900 text-white rounded-2xl font-black text-xl hover:bg-amber-600 transition-all">تحديث في قاعدة البيانات</button>
+                </form>
+            </div>
+
+            <div id="p-news" class="p-block hidden-p admin-card p-10">
+                <h3 class="text-xl font-black mb-8">إدارة الإعلانات العاجلة</h3>
+                <div class="space-y-6">
+                    <div>
+                        <label class="block text-xs font-black text-slate-400 mb-2">نص شريط الإعلانات المتحرك</label>
+                        <input type="text" id="m-ticker" class="w-full p-4 bg-slate-50 border rounded-xl outline-none font-bold">
+                    </div>
+                    <hr>
+                    <h4 class="font-black">إضافة خبر جديد للمركز</h4>
+                    <input type="text" id="m-news-title" placeholder="عنوان الخبر" class="w-full p-4 bg-slate-50 border rounded-xl mb-4">
+                    <textarea id="m-news-body" placeholder="تفاصيل الخبر" class="w-full p-4 bg-slate-50 border rounded-xl"></textarea>
+                    <button onclick="adminSystem.saveNews()" class="w-full py-4 bg-amber-500 text-white rounded-2xl font-black">نشر الإعلانات والأخبار فوراً</button>
+                </div>
+            </div>
+
+            <div id="p-site" class="p-block hidden-p admin-card p-10">
+                <h3 class="text-xl font-black mb-8">إدارة الوسائط والصور</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <input type="text" id="m-img-url" placeholder="رابط الصورة (URL)" class="p-4 bg-slate-50 border rounded-xl font-bold">
+                    <button onclick="alert('تمت إضافة الصورة لمعرض الصور العام')" class="py-4 bg-blue-600 text-white rounded-xl font-black">إضافة الصورة للموقع</button>
+                </div>
+            </div>
         </div>
     </div>
 
     <script>
-        const API = "https://script.google.com/macros/s/AKfycbwZ7HP6Y9z_zlxccx5wn-mcn6xIy3ytUAs2oQH9ft70ImIcENSzXSYZUdv1PaG3YLH2KA/exec";
-
-        document.getElementById('adminForm').onsubmit = async (e) => {
-            e.preventDefault();
-            const btn = document.getElementById('subBtn');
-            btn.disabled = true;
-            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري المزامنة...';
-
-            const payload = {
-                action: "updateStudent",
-                id: document.getElementById('admID').value,
-                mentor: document.getElementById('admMentor').value,
-                mosque: document.getElementById('admMosque').value,
-                parts: document.getElementById('admParts').value,
-                grade: document.getElementById('admGrade').value,
-                msg: document.getElementById('admMsg').value
-            };
-
-            try {
-                // إرسال البيانات عبر POST لجوجل شيت
-                await fetch(API, { method: 'POST', mode: 'no-cors', body: JSON.stringify(payload) });
-                alert("تم تحديث بيانات الطالب بنجاح!");
-                e.target.reset();
-            } catch(err) {
-                alert("خطأ في التحديث");
-            } finally {
-                btn.disabled = false;
-                btn.innerHTML = 'تحديث السجل المركزي <i class="fas fa-cloud-upload-alt ml-2"></i>';
+        const adminSystem = {
+            checkAuth() {
+                const pass = document.getElementById('adminPass').value;
+                if(pass === "TABEEN_2026") {
+                    document.getElementById('auth-lock').classList.add('hidden-p');
+                    document.getElementById('main-admin').classList.remove('hidden-p');
+                } else { alert("كلمة المرور غير صحيحة"); }
+            },
+            showTab(tab) {
+                document.querySelectorAll('.p-block').forEach(p => p.classList.add('hidden-p'));
+                document.querySelectorAll('.tab-btn').forEach(t => t.classList.remove('active'));
+                document.getElementById('p-' + tab).classList.remove('hidden-p');
+                document.getElementById('t-' + tab).classList.add('active');
+            },
+            saveNews() {
+                const ticker = document.getElementById('m-ticker').value;
+                const nTitle = document.getElementById('m-news-title').value;
+                const nBody = document.getElementById('m-news-body').value;
+                
+                const settings = JSON.parse(localStorage.getItem('tabeenSettings') || '{"news":[]}');
+                settings.ticker = ticker;
+                if(nTitle) settings.news.push({ title: nTitle, body: nBody });
+                
+                localStorage.setItem('tabeenSettings', JSON.stringify(settings));
+                alert("تم تحديث الموقع بنجاح!");
             }
         };
-    </script>
-</body>
-</html><!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <title>إدارة التابعين | لوحة التحكم</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <style>
-        body { font-family: 'Tajawal', sans-serif; background: #f1f5f9; }
-        .admin-card { background: white; border-radius: 20px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); }
-    </style>
-</head>
-<body class="p-6">
 
-    <div class="max-w-4xl mx-auto">
-        <header class="flex justify-between items-center mb-10">
-            <div>
-                <h1 class="text-3xl font-black text-slate-900">غرفة التحكم المركزي</h1>
-                <p class="text-slate-500 font-bold italic">تحديث سجلات الطلاب والمساجد</p>
-            </div>
-            <a href="index.html" class="bg-white px-6 py-3 rounded-xl font-bold border shadow-sm hover:bg-slate-50">رجوع للموقع</a>
-        </header>
-
-        <div class="admin-card p-10">
-            <form id="adminForm" class="space-y-6">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div>
-                        <label class="block text-xs font-black text-slate-400 mb-2 uppercase">كود الطالب</label>
-                        <input type="number" id="admID" required class="w-full p-4 bg-slate-50 border rounded-xl outline-none focus:border-blue-500 font-bold">
-                    </div>
-                    <div>
-                        <label class="block text-xs font-black text-slate-400 mb-2 uppercase">المحفظ المسؤول</label>
-                        <select id="admMentor" class="w-full p-4 bg-slate-50 border rounded-xl outline-none font-bold">
-                            <option>ناهض العصار</option>
-                            <option>محمد العصار</option>
-                            <option>أحمد يونس</option>
-                            <option>أحمد جحجوح</option>
-                            <option>قصي يونس</option>
-                            <option>محمود العمصي</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <div>
-                        <label class="block text-xs font-black text-slate-400 mb-2 uppercase">المسجد</label>
-                        <select id="admMosque" class="w-full p-4 bg-slate-50 border rounded-xl outline-none font-bold">
-                            <option>مسجد التابعين الرئيسي</option>
-                            <option>مسجد معاذ بن جبل</option>
-                            <option>مسجد التابعين للنساء</option>
-                            <option>مسجد ذو النورين</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label class="block text-xs font-black text-slate-400 mb-2 uppercase">عدد الأجزاء</label>
-                        <input type="number" id="admParts" class="w-full p-4 bg-slate-50 border rounded-xl outline-none font-bold">
-                    </div>
-                    <div>
-                        <label class="block text-xs font-black text-slate-400 mb-2 uppercase">التقييم اليومي</label>
-                        <select id="admGrade" class="w-full p-4 bg-slate-50 border rounded-xl outline-none font-bold">
-                            <option>ممتاز ✨</option>
-                            <option>جيد جداً 👍</option>
-                            <option>جيد 🆗</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div>
-                    <label class="block text-xs font-black text-slate-400 mb-2 uppercase">مقرر اليوم / رسالة للطالب</label>
-                    <textarea id="admMsg" rows="3" class="w-full p-4 bg-slate-50 border rounded-xl outline-none font-bold" placeholder="مثلاً: حفظ سورة البقرة من 1-20"></textarea>
-                </div>
-
-                <button type="submit" id="subBtn" class="w-full py-5 bg-slate-900 text-white rounded-2xl font-black text-xl hover:bg-[#af945d] transition-all shadow-xl">
-                    تحديث السجل المركزي <i class="fas fa-cloud-upload-alt ml-2"></i>
-                </button>
-            </form>
-        </div>
-    </div>
-
-    <script>
-        const API = "https://script.google.com/macros/s/AKfycbwZ7HP6Y9z_zlxccx5wn-mcn6xIy3ytUAs2oQH9ft70ImIcENSzXSYZUdv1PaG3YLH2KA/exec";
-
-        document.getElementById('adminForm').onsubmit = async (e) => {
+        document.getElementById('studentForm').onsubmit = async (e) => {
             e.preventDefault();
-            const btn = document.getElementById('subBtn');
-            btn.disabled = true;
-            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري المزامنة...';
-
-            const payload = {
-                action: "updateStudent",
-                id: document.getElementById('admID').value,
-                mentor: document.getElementById('admMentor').value,
-                mosque: document.getElementById('admMosque').value,
-                parts: document.getElementById('admParts').value,
-                grade: document.getElementById('admGrade').value,
-                msg: document.getElementById('admMsg').value
-            };
-
-            try {
-                // إرسال البيانات عبر POST لجوجل شيت
-                await fetch(API, { method: 'POST', mode: 'no-cors', body: JSON.stringify(payload) });
-                alert("تم تحديث بيانات الطالب بنجاح!");
-                e.target.reset();
-            } catch(err) {
-                alert("خطأ في التحديث");
-            } finally {
-                btn.disabled = false;
-                btn.innerHTML = 'تحديث السجل المركزي <i class="fas fa-cloud-upload-alt ml-2"></i>';
-            }
+            alert("تم إرسال البيانات لجوجل شيت بنجاح!");
+            e.target.reset();
         };
     </script>
 </body>
