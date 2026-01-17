@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>منصة التابعين | النظام المركزي المتكامل</title>
+    <title>منصة التابعين | البوابة الرسمية</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -12,233 +12,195 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
 
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Amiri:wght@700&family=Tajawal:wght@300;500;700;900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Amiri:wght@700&family=Tajawal:wght@300;500;800;900&display=swap');
         
-        :root {
-            --primary: #0a0f1d; --gold: #af945d; --accent: #1e3a8a;
-        }
-
-        body { font-family: 'Tajawal', sans-serif; background-color: #fcfcfc; color: var(--primary); transition: 0.3s; }
-
-        /* 1. Night Reading Mode System */
-        body.night-mode { background-color: #020617 !important; color: #f1f5f9 !important; }
-        .night-mode .card-official { background: #0f172a; border-color: #1e293b; color: white; }
-        .night-mode .header-main { background: rgba(15, 23, 42, 0.95); border-bottom-color: var(--gold); }
-
-        .header-main { background: rgba(255, 255, 255, 0.98); backdrop-filter: blur(10px); border-bottom: 4px solid var(--gold); }
-        .card-official { background: white; border-radius: 24px; border: 1px solid rgba(0,0,0,0.05); box-shadow: 0 15px 35px rgba(0,0,0,0.03); }
+        :root { --primary: #0a0f1d; --gold: #af945d; --bg: #f8fafc; }
+        body { font-family: 'Tajawal', sans-serif; background: var(--bg); color: var(--primary); transition: 0.4s; scroll-behavior: smooth; }
         
-        /* 2. Interactive Journey Styles */
-        .journey-container { position: relative; padding-right: 30px; border-right: 2px dashed #e2e8f0; }
-        .step-active { position: relative; }
-        .step-active::after { content: ''; position: absolute; right: -37px; top: 5px; width: 14px; height: 14px; background: var(--gold); border-radius: 50%; box-shadow: 0 0 10px var(--gold); }
+        /* ميزة Night Reading Mode */
+        body.night-mode { --bg: #020617; color: #f1f5f9; }
+        body.night-mode .card-elite { background: #0f172a; border-color: #1e293b; color: white; }
 
-        /* 3. Shareable Card Animation */
-        #excellenceCard { background: linear-gradient(145deg, #0a0f1d 0%, #1e293b 100%); border: 2px solid var(--gold); }
-        .gold-glow { background: linear-gradient(135deg, #8A6E2F, #C5A059, #8A6E2F); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .card-elite { background: white; border-radius: 30px; border: 1px solid rgba(0,0,0,0.05); box-shadow: 0 10px 30px rgba(0,0,0,0.02); transition: 0.3s; }
+        .card-elite:hover { transform: translateY(-5px); border-color: var(--gold); }
 
-        .btn-action { background: var(--primary); color: white; border-radius: 12px; font-weight: 700; transition: 0.3s; }
-        .btn-action:hover { background: var(--gold); transform: translateY(-2px); }
+        .gold-text { background: linear-gradient(135deg, #8A6E2F, #C5A059, #8A6E2F); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-family: 'Amiri', serif; }
+        
+        /* رحلة الإنجاز Timeline */
+        .journey-line { border-right: 3px solid var(--gold); margin-right: 15px; padding-right: 25px; }
+        .journey-node { position: relative; padding-bottom: 25px; }
+        .journey-node::after { content: '★'; position: absolute; right: -36px; top: 0; width: 20px; height: 20px; background: var(--gold); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 10px; }
+
+        .btn-main { background: var(--primary); color: white; padding: 12px 25px; border-radius: 15px; font-weight: 800; transition: 0.3s; border: 2px solid var(--primary); }
+        .btn-main:hover { background: var(--gold); border-color: var(--gold); transform: scale(1.05); }
+
+        #excellence-card { background: linear-gradient(145deg, #0a0f1d, #1e293b); border: 2px solid var(--gold); color: white; border-radius: 35px; overflow: hidden; position: relative; }
     </style>
 </head>
-<body class="pb-10">
+<body>
 
-    <header class="header-main sticky top-0 z-[1000] px-6 py-4">
+    <nav class="sticky top-0 z-[1000] bg-white/90 backdrop-blur-md border-b-4 border-[#af945d] p-4 shadow-sm">
         <div class="max-w-7xl mx-auto flex justify-between items-center">
-            <div class="flex items-center gap-4">
-                <i class="fas fa-quran text-3xl text-gold"></i>
-                <h1 class="text-xl font-black">منصة التابعين <span class="text-[9px] block text-amber-600 tracking-widest uppercase">Official Elite System</span></h1>
+            <div class="flex items-center gap-3">
+                <i class="fas fa-quran text-3xl text-[#af945d]"></i>
+                <h1 class="text-xl font-black">مركز التابعين</h1>
             </div>
             <div class="flex gap-4 items-center">
-                <button onclick="toggleNight()" class="w-10 h-10 rounded-full border border-slate-200 flex items-center justify-center transition hover:bg-slate-100"><i class="fas fa-moon"></i></button>
-                <button onclick="showAdmin()" class="bg-slate-100 px-4 py-2 rounded-lg text-xs font-black text-slate-500 hover:bg-primary hover:text-white transition">الإدارة</button>
+                <button onclick="document.body.classList.toggle('night-mode')" class="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center"><i class="fas fa-moon"></i></button>
+                <a href="admin.html" class="text-xs font-bold text-slate-500 hover:text-gold transition">لوحة الإدارة</a>
             </div>
         </div>
-    </header>
+    </nav>
 
-    <main class="max-w-7xl mx-auto px-6 py-10 grid grid-cols-1 lg:grid-cols-12 gap-8">
+    <main class="max-w-7xl mx-auto p-6 grid grid-cols-1 lg:grid-cols-12 gap-8 py-12">
         
-        <div class="lg:col-span-8 space-y-8">
+        <div class="lg:col-span-8 space-y-10">
             
-            <section class="card-official p-6 border-r-8 border-gold animate__animated animate__fadeInDown">
-                <div class="flex items-center gap-4">
-                    <div class="w-12 h-12 bg-gold/10 rounded-xl flex items-center justify-center text-gold"><i class="fas fa-lightbulb"></i></div>
-                    <div>
-                        <h4 class="text-xs font-black text-slate-400 uppercase tracking-widest">إلهام اليوم</h4>
-                        <p id="dailyMsg" class="font-bold italic text-lg leading-relaxed text-slate-700 italic">"إنَّ هذا القُرآنَ مَأدبَةُ اللهِ، فَتَعَلَّموا مَأدبَتَهُ ما استَطَعتُم"</p>
-                    </div>
+            <section class="card-elite p-8 border-r-8 border-gold animate__animated animate__fadeIn">
+                <p class="text-[10px] font-black text-gold tracking-widest uppercase mb-2">Message of the Day</p>
+                <h4 id="inspiration" class="text-xl font-bold italic text-slate-700 italic">"خياركم من تعلم القرآن وعلمه"</h4>
+            </section>
+
+            <section id="login-panel" class="card-elite p-12 text-center animate__animated animate__zoomIn">
+                <h2 class="text-3xl font-black mb-6 italic">بوابة <span class="gold-text">الارتقاء</span> الرقمية</h2>
+                <div class="max-w-xs mx-auto space-y-5">
+                    <input type="number" id="stdCode" placeholder="أدخل كود الطالب" class="w-full h-16 bg-slate-50 border-2 rounded-2xl text-center text-3xl font-black outline-none focus:border-gold transition-all">
+                    <button onclick="loginStudent()" id="loginBtn" class="btn-main w-full h-16 text-lg">فتح الملف الرسمي <i class="fas fa-key ml-2"></i></button>
                 </div>
             </section>
 
-            <div id="authBox" class="card-official p-12 text-center shadow-2xl">
-                <h3 class="text-3xl font-black mb-8">تسجيل الدخول المركزي</h3>
-                <div class="max-w-xs mx-auto space-y-4">
-                    <input type="number" id="stdID" placeholder="أدخل كود الطالب" class="w-full h-16 bg-slate-50 border-2 rounded-xl text-center text-3xl font-black focus:border-gold outline-none transition-all">
-                    <button onclick="loginSystem()" id="loginBtn" class="w-full h-16 btn-action shadow-lg">دخول آمن للمنصة <i class="fas fa-bolt-lightning ml-2"></i></button>
-                </div>
-            </div>
-
-            <div id="dashboard" class="hidden space-y-8 animate__animated animate__fadeIn">
-                
-                <div id="excellenceCard" class="p-10 rounded-[40px] shadow-2xl relative overflow-hidden text-white">
-                    <div class="relative z-10 flex flex-col md:flex-row justify-between">
-                        <div class="space-y-6">
-                            <span class="text-[10px] bg-gold px-3 py-1 rounded-full font-black text-black uppercase">Excellence Certificate</span>
-                            <h2 id="stName" class="text-4xl font-black gold-glow">-- --</h2>
+            <div id="dash" class="hidden space-y-10 animate__animated animate__fadeIn">
+                <div id="excellence-card" class="p-10 shadow-2xl relative">
+                    <div class="relative z-10 flex flex-col md:flex-row justify-between gap-6">
+                        <div class="space-y-4">
+                            <span class="text-[10px] bg-gold/20 text-gold px-4 py-1 rounded-full font-black uppercase">Official Achievement</span>
+                            <h2 id="stName" class="text-5xl font-black gold-text mt-2">-- الاسم --</h2>
                             <p id="stMentor" class="text-slate-400 font-bold italic"></p>
-                            <div class="flex gap-4">
-                                <div class="p-4 bg-white/5 rounded-2xl border border-white/10">
-                                    <span class="text-[8px] block opacity-50">الأجزاء</span>
-                                    <span id="stParts" class="text-2xl font-black">0</span>
+                            <div class="flex gap-4 mt-6">
+                                <div class="bg-white/5 p-4 rounded-2xl border border-white/10">
+                                    <span class="text-[8px] block opacity-50 uppercase">الأجزاء</span>
+                                    <span id="stParts" class="text-2xl font-black text-gold">0</span>
                                 </div>
-                                <div class="p-4 bg-white/5 rounded-2xl border border-white/10">
-                                    <span class="text-[8px] block opacity-50">التقييم</span>
+                                <div class="bg-white/5 p-4 rounded-2xl border border-white/10">
+                                    <span class="text-[8px] block opacity-50 uppercase">التقييم</span>
                                     <span id="stGrade" class="text-2xl font-black text-green-400">A+</span>
                                 </div>
                             </div>
                         </div>
                         <div class="flex flex-col items-end justify-between">
-                            <i class="fas fa-certificate text-6xl text-gold opacity-50"></i>
-                            <button onclick="exportImage()" class="mt-8 bg-white text-primary px-6 py-3 rounded-xl font-black text-xs hover:bg-gold transition-all">مشاركة البطاقة <i class="fas fa-share-alt ml-2"></i></button>
+                            <i class="fas fa-ribbon text-7xl text-gold/20"></i>
+                            <button onclick="downloadCard()" class="px-6 py-3 bg-white text-black rounded-xl font-black text-xs hover:bg-gold transition">تحميل البطاقة <i class="fas fa-download ml-1"></i></button>
                         </div>
                     </div>
                 </div>
 
-                <div class="card-official p-10">
-                    <h4 class="text-xl font-black mb-8"><i class="fas fa-route text-gold mr-2"></i> رحلة حفظك التفاعلية</h4>
-                    <div id="journeyList" class="journey-container mr-4">
+                <div class="card-elite p-10">
+                    <h3 class="text-xl font-black mb-8 flex items-center gap-3"><i class="fas fa-route text-gold"></i> خارطة الطريق إلى الختمة</h3>
+                    <div id="journey" class="journey-line">
                         </div>
                 </div>
 
-                <div class="card-official p-8 bg-blue-50/50 border-2 border-dashed border-blue-200">
+                <div class="card-elite p-8 bg-blue-50/50 border-2 border-dashed border-blue-200">
                     <div class="flex justify-between items-center mb-6">
-                        <h4 class="text-lg font-black text-blue-800">المعلم الذكي (ترقية صوتية)</h4>
-                        <span class="text-[10px] bg-blue-600 text-white px-3 py-1 rounded-full font-black uppercase">Live Beta</span>
+                        <h4 class="text-lg font-black text-blue-900">المعلم الذكي (تسميع AI)</h4>
+                        <span class="px-3 py-1 bg-blue-600 text-white text-[10px] font-black rounded-full">ACTIVE</span>
                     </div>
-                    <button onclick="startVoiceTeacher()" id="voiceBtn" class="w-full py-5 bg-white rounded-2xl border-2 border-blue-600 text-blue-600 font-black hover:bg-blue-600 hover:text-white transition-all shadow-sm">
-                        <i class="fas fa-microphone-lines mr-2"></i> ابدأ التسميع الصوتي (AI)
+                    <button onclick="startVoice()" id="vBtn" class="w-full py-5 bg-white border-2 border-blue-600 text-blue-600 font-black rounded-2xl hover:bg-blue-600 hover:text-white transition-all">
+                        <i class="fas fa-microphone-lines mr-2"></i> ابدأ التسميع الصوتي الآن
                     </button>
-                    <p id="voiceStatus" class="mt-4 text-center text-xs font-bold text-slate-400 italic">بانتظار صوتك...</p>
                 </div>
             </div>
         </div>
 
         <div class="lg:col-span-4 space-y-8">
-            
-            <section class="card-official p-8 bg-primary text-white shadow-2xl">
-                <h3 class="text-xl font-black mb-6 gold-glow flex items-center gap-2"><i class="fas fa-medal"></i> لوحة الشرف</h3>
-                <div class="space-y-4" id="honorWall">
-                    <div class="flex items-center justify-between p-3 bg-white/5 rounded-xl border-r-4 border-gold">
-                        <span class="font-bold text-sm">أحمد يونس</span>
-                        <span class="text-[10px] font-black bg-gold text-black px-2 py-1 rounded">خاتم</span>
+            <section class="card-elite p-8 bg-slate-900 text-white">
+                <h3 class="text-xl font-black gold-text mb-6 flex items-center gap-2"><i class="fas fa-medal"></i> لوحة الشرف</h3>
+                <div id="honor-wall" class="space-y-4">
+                    <div class="flex justify-between p-3 bg-white/5 rounded-xl border-r-4 border-gold">
+                        <span class="font-bold">أحمد يونس</span>
+                        <span class="text-[10px] bg-gold text-black px-2 py-1 rounded font-black">الأول</span>
                     </div>
-                    <div class="flex items-center justify-between p-3 bg-white/5 rounded-xl border-r-4 border-slate-400">
-                        <span class="font-bold text-sm">محمد العصار</span>
-                        <span class="text-[10px] font-black bg-slate-400 text-black px-2 py-1 rounded">28 جزء</span>
+                    <div class="flex justify-between p-3 bg-white/5 rounded-xl border-r-4 border-slate-400">
+                        <span class="font-bold">محمد العصار</span>
+                        <span class="text-[10px] bg-slate-400 text-black px-2 py-1 rounded font-black">الثاني</span>
                     </div>
                 </div>
             </section>
 
-            <section class="card-official p-8 text-center bg-gradient-to-br from-white to-slate-50">
+            <section class="card-elite p-8 text-center">
                 <i class="fas fa-hand-holding-heart text-4xl text-red-500 mb-4"></i>
-                <h3 class="text-xl font-black">بوابة العطاء</h3>
-                <p class="text-[10px] font-bold text-slate-400 mb-6">ساهم في كفالة حلقات التحفيظ</p>
+                <h4 class="font-black text-lg">بوابة العطاء</h4>
+                <p class="text-[10px] font-bold text-slate-400 mb-6 uppercase">مساهمتك تبني أجيال القرآن</p>
                 <div class="grid grid-cols-2 gap-2 mb-4">
-                    <button onclick="setDon(50)" class="py-3 border-2 border-slate-100 rounded-xl font-black text-sm hover:border-gold hover:text-gold transition">50$</button>
-                    <button onclick="setDon(100)" class="py-3 border-2 border-slate-100 rounded-xl font-black text-sm hover:border-gold hover:text-gold transition">100$</button>
+                    <button onclick="alert('جاري التجهيز')" class="py-3 border rounded-xl font-bold text-sm hover:bg-gold hover:text-white transition">50$</button>
+                    <button onclick="alert('جاري التجهيز')" class="py-3 border rounded-xl font-bold text-sm hover:bg-gold hover:text-white transition">100$</button>
                 </div>
-                <button class="w-full py-4 btn-action">تبرع سريع الآن</button>
+                <button class="w-full py-4 btn-main">تبرع سريع</button>
             </section>
-
         </div>
     </main>
 
     <script>
-        // الرابط الموحد لقاعدة البيانات
         const API = "https://script.google.com/macros/s/AKfycbwZ7HP6Y9z_zlxccx5wn-mcn6xIy3ytUAs2oQH9ft70ImIcENSzXSYZUdv1PaG3YLH2KA/exec";
 
-        // 1. نظام الدخول المتكامل
-        async function loginSystem() {
-            const id = document.getElementById('stdID').value;
+        async function loginStudent() {
+            const code = document.getElementById('stdCode').value;
             const btn = document.getElementById('loginBtn');
-            if(!id) return;
+            if(!code) return;
 
             btn.disabled = true;
-            btn.innerHTML = '<i class="fas fa-circle-notch fa-spin"></i> جاري ربط البيانات...';
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري الربط السحابي...';
 
             try {
-                const res = await fetch(`${API}?action=getStudent&id=${id}`);
+                const res = await fetch(`${API}?action=getStudent&id=${code}`);
                 const data = await res.json();
-
                 if(data.status === 'success') {
-                    document.getElementById('authBox').classList.add('hidden');
-                    document.getElementById('dashboard').classList.remove('hidden');
-                    buildStudentUI(data.student);
+                    document.getElementById('login-panel').classList.add('hidden');
+                    document.getElementById('dash').classList.remove('hidden');
+                    renderUI(data.student);
                     confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 } });
                 } else {
-                    alert("الكود غير موجود في السجل المركزي.");
+                    alert("الكود غير صحيح");
                     btn.disabled = false;
-                    btn.innerHTML = 'دخول آمن للمنصة';
+                    btn.innerHTML = 'فتح الملف الرسمي';
                 }
-            } catch(e) {
-                alert("خطأ في الاتصال بالسيرفر.");
-                btn.disabled = false;
-            }
+            } catch(e) { alert("خطأ في الاتصال"); btn.disabled = false; }
         }
 
-        // 2. بناء الواجهة التفاعلية للطالب
-        function buildStudentUI(s) {
+        function renderUI(s) {
             document.getElementById('stName').innerText = s.name;
-            document.getElementById('stMentor').innerText = "تحت إشراف: " + s.mentor;
+            document.getElementById('stMentor').innerText = "بإشراف المحفظ: " + s.mentor;
             document.getElementById('stParts').innerText = s.parts;
             document.getElementById('stGrade').innerText = s.grade || "A+";
-
-            // بناء الرحلة التفاعلية (Interactive Journey)
-            const journey = document.getElementById('journeyList');
-            journey.innerHTML = `
-                <div class="step-active animate__animated animate__fadeInRight p-4">
-                    <h5 class="font-black text-gold text-lg">المحطة الحالية: ${s.today}</h5>
-                    <p class="text-xs font-bold text-slate-400">ملاحظة المحفظ: ${s.msg || 'واصل الهمة يا بطل'}</p>
-                </div>
-                <div class="opacity-30 p-4">
-                    <h5 class="font-black text-sm uppercase">الهدف القادم: مراجعة الجزء ${parseInt(s.parts)+1}</h5>
+            
+            const j = document.getElementById('journey');
+            j.innerHTML = `
+                <div class="journey-node animate__animated animate__fadeInRight">
+                    <h5 class="font-black text-slate-800 text-lg">المحطة الحالية: ${s.today || 'مراجعة'}</h5>
+                    <p class="text-xs font-bold text-slate-500 mt-1">توجيه: ${s.msg || 'واصل بهمة'}</p>
                 </div>
             `;
         }
 
-        // 3. نظام المعلم الصوتي الذكي (Voice-to-Text Upgrade)
-        function startVoiceTeacher() {
-            const rec = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
-            rec.lang = 'ar-SA';
-            rec.start();
-            document.getElementById('voiceStatus').innerText = "جاري الاستماع لتلاوتك الآن...";
-
-            rec.onresult = (e) => {
-                const text = e.results[0][0].transcript;
-                document.getElementById('voiceStatus').innerHTML = `<span class="text-green-600 font-black">تم التسجيل: "${text}"</span>`;
-                confetti({ particleCount: 30, scalar: 0.7 });
-            };
-        }
-
-        // 4. تحميل ومشاركة بطاقة التميز (Shareable Cards)
-        function exportImage() {
-            const card = document.getElementById('excellenceCard');
-            html2canvas(card, { scale: 3, backgroundColor: '#0a0f1d' }).then(canvas => {
+        function downloadCard() {
+            html2canvas(document.getElementById('excellence-card'), { scale: 3 }).then(canvas => {
                 const link = document.createElement('a');
-                link.download = `Excellence_Tabeen.png`;
+                link.download = `Achiever_${Date.now()}.png`;
                 link.href = canvas.toDataURL();
                 link.click();
             });
         }
 
-        // 5. Night Reading Mode Toggle
-        function toggleNight() {
-            document.body.classList.toggle('night-mode');
+        function startVoice() {
+            const rec = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+            rec.lang = 'ar-SA';
+            rec.start();
+            document.getElementById('vBtn').innerText = "جاري الاستماع لتلاوتك...";
+            rec.onresult = (e) => {
+                alert("تم التقاط التسميع: " + e.results[0][0].transcript);
+                document.getElementById('vBtn').innerText = "ابدأ التسميع الصوتي الآن";
+            };
         }
-
-        function setDon(v) { alert("سيتم فتح بوابة الدفع للتبرع بمبلغ: " + v + "$"); }
-        function showAdmin() { window.location.href = 'admin.html'; }
-
     </script>
 </body>
 </html>
