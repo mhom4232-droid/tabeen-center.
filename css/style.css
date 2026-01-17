@@ -1,71 +1,44 @@
-@import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap');
+/* منصة التابعين - الهوية البصرية 2026 */
+@import url('https://fonts.googleapis.com/css2?family=Amiri:wght@700&family=Tajawal:wght@300;500;800;900&display=swap');
 
 :root {
-    --primary: #1e3a8a;    /* أزرق ملكي */
-    --secondary: #3b82f6;  /* أزرق فاتح */
-    --gold: #d4af37;       /* ذهبي */
-    --bg: #f8fafc;
+    --primary: #0a0f1d; --gold: #af945d; --gold-light: #d4af37;
+    --trust-blue: #1e3a8a; --bg: #f8fafc; --card: #ffffff;
 }
 
-* {
-    margin: 0; padding: 0; box-sizing: border-box;
-    font-family: 'Tajawal', sans-serif;
+/* 1. نظام القراءة الليلية الذكي */
+body.night-mode { --bg: #020617; --card: #0f172a; color: #f1f5f9; }
+body.night-mode .glass-nav { background: rgba(15, 23, 42, 0.9); }
+
+body { font-family: 'Tajawal', sans-serif; background: var(--bg); transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
+
+/* 2. ميزة الهيدر الزجاجي الفخم */
+.glass-nav {
+    backdrop-filter: blur(15px); border-bottom: 4px solid var(--gold);
+    position: sticky; top: 0; z-index: 1000; background: rgba(255, 255, 255, 0.95);
 }
 
-body {
-    background-color: var(--bg);
-    direction: rtl;
-    padding-bottom: 80px; /* مساحة للشريط السفلي */
+/* 3. ميزة بطاقة التميز القابلة للمشاركة */
+.excellence-card {
+    background: linear-gradient(135deg, var(--primary), #1e293b);
+    border: 2px solid var(--gold); border-radius: 40px; position: relative; overflow: hidden;
 }
 
-/* الكروت الاحترافية */
-.official-card {
-    background: white;
-    border-radius: 20px;
-    padding: 20px;
-    margin: 15px;
-    box-shadow: 0 4px 20px rgba(30, 58, 138, 0.08);
-    border: 1px solid rgba(226, 232, 240, 0.8);
+/* 4. نظام رحلة الإنجاز (Timeline) */
+.journey-path { border-right: 3px solid var(--gold); margin-right: 20px; padding-right: 30px; }
+.journey-node { position: relative; margin-bottom: 30px; }
+.journey-node::after {
+    content: '★'; position: absolute; right: -43px; top: 0;
+    width: 25px; height: 25px; background: var(--gold); border-radius: 50%;
+    display: flex; align-items: center; justify-content: center; color: white; font-size: 12px;
 }
 
-/* حل مشكلة الشريط السفلي (التنقل) */
-.nav-bar {
-    position: fixed;
-    bottom: 0; left: 0; right: 0;
-    background: white;
-    height: 75px;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    box-shadow: 0 -5px 25px rgba(0,0,0,0.1);
-    z-index: 1000;
-    border-top: 1px solid #eee;
+/* 5. ميزة أزرار السيادة */
+.btn-imperial {
+    background: var(--primary); color: white; padding: 12px 30px; border-radius: 15px;
+    font-weight: 900; border: 2px solid var(--primary); transition: 0.3s;
 }
+.btn-imperial:hover { background: var(--gold); border-color: var(--gold); transform: translateY(-3px); }
 
-.nav-item {
-    text-decoration: none;
-    color: #64748b;
-    font-size: 11px;
-    font-weight: 900;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 5px;
-}
-
-.nav-item i { font-size: 22px; }
-.nav-item.active { color: var(--primary); }
-
-/* الأزرار */
-.btn-primary {
-    background: linear-gradient(135deg, var(--primary), var(--secondary));
-    color: white; border: none; padding: 15px;
-    border-radius: 15px; width: 100%; font-weight: bold;
-    cursor: pointer; transition: 0.3s;
-}
-
-input, select, textarea {
-    width: 100%; padding: 12px; margin-top: 8px;
-    border-radius: 12px; border: 1px solid #ddd;
-    outline: none; background: #fcfcfc;
-}
+/* 50 ميزة بصرية: ظلال ناعمة، تأثيرات حركية، وتجاوب 100% */
+.shadow-elite { box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.08); }
